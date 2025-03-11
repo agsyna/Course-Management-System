@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+}
+
+.mainwrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("assets/BMU_bg.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 1rem;
+}
+
+.mainwrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.755), rgba(0, 0, 0, 0));
+  z-index: 1;
+}
+
+.mainwrapper>* {
+  position: relative;
+  z-index: 2;
+}
+
+
+.leftsidebar {
+  width: 16rem;
+  background: rgba(42, 45, 53, 0.95);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  height: calc(100vh - 2rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.toplogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.navlinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.navitem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #9CA3AF;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  background: rgba(75, 85, 99, 0.1);
+  transition: all 0.2s;
+}
+
+.navitem.active,
+.navitem:hover {
+  background-color: rgba(75, 85, 99, 0.5);
+  color: white;
+}
+
+
+.rightcontent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.assignment-container {
+  width: 70%;
+  background: rgba(26, 28, 35, 0.95);
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: rgba(42, 45, 53, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+textarea {
+  height: 6rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+
+.flex-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.flex-container .form-group {
+  flex: 1;
+}
+
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+
+.due-points {
+  display: flex;
+  gap: 1rem;
+}
+
+.due-points .form-group {
+  flex: 1;
+}
+
+
+.attachment-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.attachment-buttons button {
+  padding: 0.5rem 1rem;
+  background: rgba(75, 85, 99, 0.5);
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.attachment-buttons button:hover {
+  background: rgba(75, 85, 99, 0.7);
+}
+
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit {
+  background: rgba(59, 130, 246, 0.8);
+  color: white;
+}
+
+.submit:hover {
+  background: rgba(59, 130, 246, 0.9);
+}
+
+.cancel {
+  background: rgba(107, 114, 128, 0.5);
+  color: white;
+}
+
+.cancel:hover {
+  background: rgba(107, 114, 128, 0.7);
+}

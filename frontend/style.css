@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=  Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  min-height: 100vh;
+}
+
+.mainwrapper {
+  display: flex;
+  min-height: 100vh;
+  padding: 1rem;
+  background-image: url("assets/BMU_bg.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.mainwrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  z-index: 1;
+}
+
+.mainwrapper > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Sidebar */
+.leftsidebar {
+  width: 16rem;
+  background: rgba(42, 45, 53, 0.95);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  height: calc(100vh - 2rem);
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.toplogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.navlinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.navitem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #9CA3AF;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  background: rgba(75, 85, 99, 0.1);
+  transition: all 0.2s;
+}
+
+.navitem.active,
+.navitem:hover {
+  background-color: rgba(75, 85, 99, 0.5);
+  color: white;
+}
+.rightcontent {
+  flex: 1;
+  padding: 2rem;
+  background: rgba(26, 28, 35, 0.95);
+  border-radius: 1rem;
+  height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+.topsection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.welcomebox h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.welcomebox p {
+  color: #9CA3AF;
+}
+
+.userbox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notifbtn {
+  background: rgba(42, 45, 53, 0.8);
+  border: none;
+  color: #9CA3AF;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.profpic {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+}
+
+.statboxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statbox1, .statbox2, .statbox3, .statbox4 {
+  background: rgba(42, 45, 53, 0.8);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.boxwrap {
+  display: flex;
+  gap: 1rem;
+}
+
+.iconbox {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconbox.blue {
+  background: rgba(96, 165, 250, 0.2);
+}
+
+.txtbox h3 {
+  color: #9CA3AF;
+  margin-bottom: 0.25rem;
+}
+
+.chartboxes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.chartbox1, .chartbox2 {
+  background: rgba(42, 45, 53, 0.8);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.tableboxes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.tablebox1, .tablebox2 {
+  background: rgba(42, 45, 53, 0.8);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.tablehead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.createbtn, .viewbtn {
+  font-size: 0.875rem;
+  color: #60A5FA;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.createbtn:hover, .viewbtn:hover {
+  background: rgba(96, 165, 250, 0.1);
+}
+
+.datatable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+
+.datatable th {
+  text-align: left;
+  padding: 0.75rem;
+  color: #9CA3AF;
+}
+
+.datatable td {
+  padding: 0.75rem;
+  background: rgba(42, 45, 53, 0.4);
+}
+
+.datatable tr td:first-child {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.datatable tr td:last-child {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.progbar {
+  width: 6rem;
+  height: 0.5rem;
+  background-color: rgba(55, 65, 81, 0.5);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progfill {
+  width: 66.666667%;
+  height: 100%;
+  background-color: #F59E0B;
+  border-radius: 9999px;
+}
+
+.deadlinebadge {
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #F59E0B;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialogbox {
+  background-color: rgba(42, 45, 53, 0.95);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  max-width: 24rem;
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hidden {
+  display: none;
+}
+
+.connectbody {
+  width: 400px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 15px;
+}
+.connect-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.connect-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.connect-header a {
+  color: #4cafef;
+  text-decoration: none;
+  font-size: 14px;
+}
+.connect {
+  background: #252525;
+  border-radius: 8px;
+  padding: 10px;
+}
+.connect-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+}
+.connect-item:last-child {
+  border-bottom: none;
+}
+.connect-icon {
+  width: 35px;
+  height: 35px;
+  background: #3a3a3a;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  margin-right: 10px;
+}
+.connect-text {
+  flex-grow: 1;
+}
+.connect-text h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.connect-text p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #ccc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+}
+.connect-time {
+  font-size: 12px;
+  color: #777;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(26, 28, 35, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(42, 45, 53, 0.8);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #373a44;
+}

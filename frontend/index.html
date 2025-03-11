@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="bg-[#1a1c23] text-white">
+
+
+  <div class="mainwrapper">
+
+    <aside class="leftsidebar">
+      <div class="toplogo">
+        <img src="assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+      </div>
+
+      <nav class="navlinks">
+        <a href="#" class="navitem active">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+            </path>
+          </svg>
+          Dashboard
+        </a>
+        <a href="#" class="navitem">Profile</a>
+        <a href="#" class="navitem">Courses</a>
+        <a href="assignmentcreate.html" class="navitem">Assignments</a>
+        <a href="#" class="navitem">Attendance</a>
+        <a href="calendar.html" class="navitem">Schedule</a>
+        <a href="#" class="navitem">Connect</a>
+        <a href="#" class="navitem">Settings</a>
+      </nav>
+    </aside>
+
+
+    <main class="rightcontent">
+      <div class="topsection">
+        <div class="welcomebox">
+          <h1 class="text-2xl font-semibold">Statistics</h1>
+          <p class="text-gray-400">Welcome back, Professor</p>
+        </div>
+        <div class="userbox">
+          <button class="notifbtn">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+              </path>
+            </svg>
+          </button>
+          <img src="assets/BMU_bg.png" alt="Profile" class="profpic" />
+        </div>
+      </div>
+
+
+      <div class="statboxes">
+        <div class="statbox1">
+          <div class="boxwrap">
+
+            <img src="assets/icons/attendance.png" alt="attendance_icon" class="w-8 h-8">
+
+            <div class="txtbox">
+              <h3 class="text-sm text-gray-400">Attendance</h3>
+              <p class="text-xl font-semibold">85.7% last month</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="statbox2">
+          <div class="boxwrap">
+
+            <img src="assets/icons/courses.png" alt="" class="w-8 h-8">
+            <!-- </div> -->
+            <div class="txtbox">
+              <h3 class="text-sm text-gray-400">Courses</h3>
+              <p class="text-xl font-semibold">+4 from last month</p>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="statbox2">
+          <div class="boxwrap">
+            <!-- <div class="iconbox green"> -->
+            <img src="assets/icons/assignment.png" alt="" class="w-8 h-8">
+            <!-- </div> -->
+            <div class="txtbox">
+              <h3 class="text-sm text-gray-400">Assignments</h3>
+              <p class="text-xl font-semibold">4 assigned<br> 2 scheduled</p>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="statbox2">
+          <div class="boxwrap">
+            <!-- <div class="iconbox green"> -->
+            <img src="assets/icons/feedback.png" alt="" class="w-8 h-8">
+            <!-- </div> -->
+            <div class="txtbox">
+              <h3 class="text-sm text-gray-400">Mentee</h3>
+              <p class="text-xl font-semibold">24 </p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- Tables boxes -->
+      <div class="tableboxes">
+        <div class="tablebox1">
+          <div class="tablehead">
+            <h3 class="text-lg font-semibold">Assignments</h3>
+            <button onclick="openAssignmentForm()" class="createbtn">Create Assignment</button>
+          </div>
+          <table class="datatable">
+            <thead>
+              <tr class="text-gray-400 text-sm">
+                <th class="text-left pb-4">S.No.</th>
+                <th class="text-left pb-4">Name</th>
+                <th class="text-left pb-4">Points</th>
+                <th class="text-left pb-4">Deadline</th>
+                <th class="text-left pb-4">Submissions</th>
+              </tr>
+            </thead>
+            <tbody id="assignmentsTable" class="text-sm"></tbody>
+          </table>
+        </div>
+
+        <div class="tablebox2">
+          <div class="tablehead">
+            <h3 class="text-lg font-semibold">Schedule</h3>
+            <button class="viewbtn">See all</button>
+          </div>
+          <table class="datatable">
+            <thead>
+              <tr class="text-gray-400 text-sm">
+                <th class="text-left pb-4">Time</th>
+                <th class="text-left pb-4">Name</th>
+                <th class="text-left pb-4">Section</th>
+                <th class="text-left pb-4">Location</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr>
+                <td class="py-2">9:15</td>
+                <td>Database Management</td>
+                <td>CSE 1 2023</td>
+                <td>NB 206</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="chartboxes">
+        <div class="chartbox1">
+          <h3 class="text-lg font-semibold mb-4">Connect</h3>
+          <!-- <div class="connectbody"> -->
+          <!-- <div class="connect-header">
+                  <h2>Connect</h2>
+                  <a href="#">See all</a>
+              </div> -->
+          <!-- <div class="connect"> -->
+          <div class="connect-item">
+            <div class="connect-icon">KM</div>
+            <div class="connect-text">
+              <h3>Kartik Mehtani</h3>
+              <p>Hello, Mr Kartik. I am yet to get your class CSE 6 res...</p>
+            </div>
+            <div class="connect-time">10:25 am</div>
+          </div>
+          <div class="connect-item">
+            <div class="connect-icon">SA</div>
+            <div class="connect-text">
+              <h3>Syna Agarwala</h3>
+              <p>Please schedule your class test.</p>
+            </div>
+            <div class="connect-time">12:35 pm</div>
+          </div>
+          <div class="connect-item">
+            <div class="connect-icon">MA</div>
+            <div class="connect-text">
+              <h3>Manya Agarwal</h3>
+              <p>Please send last meeting MOM</p>
+            </div>
+            <div class="connect-time">04:30 pm</div>
+          </div>
+          <!-- </div> -->
+          <!-- </div> -->
+        </div>
+        <div class="chartbox2">
+          <h3 class="text-lg font-semibold mb-4">Attendance</h3>
+          <canvas id="attendanceChart"></canvas>
+        </div>
+      </div>
+
+      <div id="successDialog" class="dialog hidden">
+        <div class="dialogbox">
+          <h3 class="text-xl font-semibold mb-4">Success!</h3>
+          <p>Assignment has been created successfully.</p>
+          <button onclick="closeDialog()" class="mt-4 px-4 py-2 bg-blue-500 rounded-lg">Close</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

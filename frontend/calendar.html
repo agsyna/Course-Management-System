@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Schedule</title>
+    <link rel="stylesheet" href="calendar.css">
+</head>
+
+<body>
+    <div class="mainwrapper">
+
+        <aside class="leftsidebar">
+            <div class="toplogo">
+                <img src="assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+            </div>
+
+            <nav class="navlinks">
+                <a href="index.html" class="navitem">Dashboard</a>
+
+                <a href="" class="navitem">Profile</a>
+                <a href="" class="navitem">Profile</a>
+                <a href="#" class="navitem">Courses</a>
+                <a href="assignmentcreate.html" class="navitem">Assignments</a>
+                <a href="#" class="navitem">Attendance</a>
+                <a href="#" class="navitem active">
+                    Schedule
+                </a>
+                <a href="#" class="navitem">Connect</a>
+                <a href="#" class="navitem">Settings</a>
+            </nav>
+        </aside>
+
+
+        <main class="rightcontent">
+
+            <header>
+                <div class="header-left">
+                    <h1>Schedule</h1>
+                    <span class="subtitle">CSE - 6</span>
+                </div>
+
+            </header>
+
+
+            <div class="calendar-controls">
+                <div class="date-selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>Select the date</span>
+                </div>
+                <div class="month-selector">
+                    <button id="prevMonth">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <span id="currentMonth"></span>
+                    <button id="nextMonth">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="calendar-container">
+                <table id="calendar">
+                    <thead>
+                        <tr>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendarBody"></tbody>
+                </table>
+            </div>
+    </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
