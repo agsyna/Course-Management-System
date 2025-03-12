@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal - Attendance</title>
+  <link rel="stylesheet" href="attendance.css">
+</head>
+<body>
+  <div class="mainwrapper">
+    <aside class="leftsidebar">
+        <div class="toplogo">
+          <img src="assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" />
+        </div>
+        <nav class="navlinks">
+          <a href="student.html" class="navitem">Dashboard</a>
+          <a href="#" class="navitem">Courses</a>
+          <a href="listassignments.html" class="navitem">Assignments</a>
+          <a href="#" class="navitem active">Attendance</a>
+          <a href="marks.html" class="navitem">Marks</a>
+          <a href="calendar.html" class="navitem">Schedule</a>
+          <a href="#" class="navitem">Connect</a>
+          <a href="#" class="navitem">Settings</a>
+          <a href="login.html" class="navitem">Sign Out</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h1 id="currentPage">Attendance</h1>
+          <span>List</span>
+        </div>
+      </header>
+
+      <div class="attendance-container">
+        <div class="attendance-header-row">
+            <div>Code</div>
+            <div>Course Name</div>
+            <div>Attendance Count</div>
+            <div>Percentage</div>
+            <div>% After Capping</div>
+        </div>
+        <div class="attendance-list">
+            <div class="attendance-row">
+                <div>CSE2709</div>
+                <div class="blue">COA</div>
+                <div>36/50</div>
+                <div>74%</div>
+                <div class="yellow">0.0</div>
+            </div>
+            <div class="attendance-row">
+                <div>CSE3005</div>
+                <div class="blue">SE</div>
+                <div>68/80</div>
+                <div>85%</div>
+                <div class="yellow">0.0</div>
+            </div>
+            <div class="attendance-row">
+                <div>CSE3709</div>
+                <div class="blue">MAD</div>
+                <div>51/56</div>
+                <div>91.07%</div>
+                <div class="yellow">0.0</div>
+            </div>
+            <div class="attendance-row">
+                <div>PSP2709</div>
+                <div class="blue">Design Thinking</div>
+                <div>58/60</div>
+                <div>96.66%</div>
+                <div class="yellow">0.0</div>
+            </div>
+            <div class="attendance-row">
+                <div>CSE2032</div>
+                <div class="blue">Machine Learning</div>
+                <div>65/78</div>
+                <div>83.3%</div>
+                <div class="yellow">0.0</div>
+            </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

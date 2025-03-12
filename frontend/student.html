@@ -24,13 +24,14 @@
                 </svg>
                 Dashboard
               </a>
-              <a href="#" class="navitem">Profile</a>
-              <a href="#" class="navitem">Courses</a>
+              <a href="courses.html" class="navitem">Courses</a>
               <a href="listassignments.html" class="navitem">Assignments</a>
-              <a href="#" class="navitem">Attendance</a>
+              <a href="attendance.html" class="navitem">Attendance</a>
+                <a href="marks.html" class="navitem">Marks</a>
               <a href="calendar.html" class="navitem">Schedule</a>
               <a href="#" class="navitem">Connect</a>
               <a href="#" class="navitem">Settings</a>
+              <a href="login.html" class="navitem">Sign Out</a>
             </nav>
           </aside>
 
@@ -57,69 +58,68 @@
           </div>
         </div>
 
-        <!-- Stats Grid -->
-        <div class="statsgrid">
-          <div class="statbox">
-            <div class="iconwrap">
-              <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-              </svg>
+        <div class="dashboard">
+            <!-- Statistics Grid -->
+            <div class="statsgrid">
+              <div class="statbox">
+                <!-- <div class="iconwrap"> -->
+                  <img src="assets/icons/attendance.png" alt="Attendance Icon" class="icon">
+                <!-- </div> -->
+                <div class="statinfo">
+                  <h3>Attendance</h3>
+                  <p>40/48</p>
+                  <span>83% last month</span>
+                </div>
+              </div>
+              <div class="statbox">
+                <!-- <div class="iconwrap"> -->
+                  <img src="assets/icons/courses.png" alt="Courses Icon" class="icon">
+                <!-- </div> -->
+                <div class="statinfo">
+                  <h3>Courses</h3>
+                  <p>8 opted</p>
+                </div>
+              </div>
+              <div class="statbox">
+                <!-- <div class="iconwrap"> -->
+                  <img src="assets/icons/assignment.png" alt="Assignments Icon" class="icon">
+                <!-- </div> -->
+                <div class="statinfo">
+                  <h3>Assignments</h3>
+                  <p>2 submitted</p>
+                  <span>4 pending</span>
+                </div>
+              </div>
+              <div class="statbox">
+                <!-- <div class="iconwrap"> -->
+                  <img src="assets/icons/feedback.png" alt="Feedback Icon" class="icon">
+                <!-- </div> -->
+                <div class="statinfo">
+                  <h3>Feedback</h3>
+                  <p>2 submitted</p>
+                  <span>4 pending</span>
+                </div>
+              </div>
             </div>
-            <div class="statinfo">
-              <h3>Attendance</h3>
-              <p>40/48</p>
-              <span>83% last month</span>
+          
+            <!-- Charts Grid -->
+            <div class="chartsgrid">
+              <div class="assignmentschart">
+                <h3>Assignments</h3>
+                <canvas id="assignmentsChart"></canvas>
+              </div>
+              <!-- <div class="attendancegauge">
+                <h3>Attendance</h3>
+                <p class="total-attendance">Total Attendance</p>
+                <p class="attendance-ratio">40/48</p>
+                <canvas id="attendanceGauge"></canvas>
+              </div> -->
             </div>
           </div>
-          <div class="statbox">
-            <div class="iconwrap">
-              <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-              </svg>
-            </div>
-            <div class="statinfo">
-              <h3>Courses</h3>
-              <p>8 opted</p>
-            </div>
-          </div>
-          <div class="statbox">
-            <div class="iconwrap">
-              <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-              </svg>
-            </div>
-            <div class="statinfo">
-              <h3>Assignments</h3>
-              <p>2 submitted</p>
-              <span>4 pending</span>
-            </div>
-          </div>
-          <div class="statbox">
-            <div class="iconwrap">
-              <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <div class="statinfo">
-              <h3>Feedback</h3>
-              <p>2 submitted</p>
-              <span>4 pending</span>
-            </div>
-          </div>
-        </div>
+          
 
-        <!-- Charts Section -->
-        <div class="chartsgrid">
-          <div class="assignmentschart">
-            <canvas id="assignmentsChart"></canvas>
-          </div>
-          <div class="attendancegauge">
-            <canvas id="attendanceGauge"></canvas>
-          </div>
-        </div>
-
-        <!-- Assignments Table -->
         <div class="assignmentstable">
+            <h3>Assignments</h3>
           <table>
             <thead>
               <tr>

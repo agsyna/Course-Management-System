@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  min-height: 100vh;
+}
+
+.mainwrapper {
+  display: flex;
+  min-height: 100vh;
+  padding: 1rem;
+  background-image: url("assets/BMU_bg.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.mainwrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  z-index: 1;
+}
+
+.mainwrapper > * {
+  position: relative;
+  z-index: 2;
+}
+
+.leftsidebar {
+  width: 16rem;
+  background: rgba(42, 45, 53, 0.95);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  height: calc(100vh - 2rem);
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.toplogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.navlinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.navitem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #9CA3AF;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  background: rgba(75, 85, 99, 0.1);
+  transition: all 0.2s;
+}
+
+.navitem.active,
+.navitem:hover {
+  background-color: rgba(75, 85, 99, 0.5);
+  color: white;
+}
+
+.main-content {
+  flex: 1;
+  /* background-color: #1F2937; */
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.course-container {
+  background: rgba(42, 45, 53, 0.718);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.course-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+}
+
+.course-table {
+      margin-top: 10px;
+
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(42, 45, 53, 0.95);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.course-table th,
+.course-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #4B5563;
+}
+
+.course-table th {
+  background: #1F2937;
+}
+
+.course-table tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.add-button {
+  background: #E53E3E;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-button:hover {
+  background: #C53030;
+}
+
+.submit-btn {
+    align-self: flex-end;
+    margin-top: 20px;
+  background: #38A169;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background: #2F855A;
+}
+
+.blue {
+  color: #A9DFD8;
+}
+
+.yellow {
+  color: #FFC20E;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: rgba(75, 85, 99, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .search-bar .search-icon {
+    width: 20px;
+    height: 20px;
+    color: white;
+    cursor: pointer;
+  }
+  

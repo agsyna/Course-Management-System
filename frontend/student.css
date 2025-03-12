@@ -128,18 +128,24 @@ body {
 }
 
 .statsgrid {
+    width: 1200px;
+    height: 120px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 }
 
 .statbox {
+    width: 100%;
   background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 1rem;
   display: flex;
   gap: 1rem;
+  align-items: center;
+
 }
+
 
 .iconwrap {
   padding: 0.75rem;
@@ -150,30 +156,26 @@ body {
 
 .statinfo h3 {
   color: #9CA3AF;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   margin-bottom: 0.25rem;
 }
 
 .statinfo p {
   font-weight: 600;
+  font-size: 0.875rem;
   margin-bottom: 0.25rem;
 }
 
 .statinfo span {
   color: #9CA3AF;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
 }
 
 .chartsgrid {
+    
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 1.5rem;
-}
-
-.assignmentschart, .attendancegauge {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-  border-radius: 1rem;
 }
 
 .assignmentstable {
@@ -313,3 +315,28 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #373a44;
   }
+
+  .dashboard {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+
+  .assignmentschart, .attendancegauge {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .attendancegauge .total-attendance {
+    font-size: 12px;
+    color: #9CA3AF;
+  }
+  
+  .attendancegauge .attendance-ratio {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFFFFF;
+  }
+  
