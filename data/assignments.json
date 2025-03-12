@@ -1,29 +1,22 @@
 [
   {
-    "title": "dsg",
+    "title": "REVIEW 1",
     "dueDate": "2025-03-13",
     "points": "100",
     "submissions": 0,
-    "instructions": "dsfds"
+    "instructions": "REVIEW 1"
   },
   {
-    "title": "dfga",
+    "title": "REVIEW 2",
     "dueDate": "2025-03-13",
-    "points": "100",
+    "points": "40",
     "submissions": 0,
-    "instructions": ""
+    "instructions": "ASD"
   },
   {
-    "title": "dsg",
+    "title": "REVIEW 3",
     "dueDate": "2025-03-14",
-    "points": "100",
-    "submissions": 0,
-    "instructions": "sdg"
-  },
-  {
-    "title": "RUMJHUM",
-    "dueDate": "2025-03-18",
-    "points": "500",
+    "points": "30",
     "submissions": 0,
     "instructions": ""
   }

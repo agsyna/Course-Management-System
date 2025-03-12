@@ -1,3 +1,40 @@
+
+
+//login function
+async function handleLogin(event) {
+  event.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  try {
+      const response = await fetch('../data/users.json');
+      if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+      }
+
+      const users = await response.json();
+
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+          sessionStorage.setItem('currentUser', JSON.stringify(user));
+
+          if (user.role === 'faculty') {
+              window.location.href = 'index.html';
+          } else {
+              window.location.href = 'student.html';
+          }
+      } else {
+          alert('Invalid credentials. Please try again.');
+      }
+  } catch (error) {
+      console.error('Error fetching users:', error);
+      alert('An error occurred while logging in. Please try again later.');
+  }
+}
+
+
 //first chart of index
 document.addEventListener("DOMContentLoaded", () => 
   

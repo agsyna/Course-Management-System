@@ -1,0 +1,12 @@
+[
+    {
+        "email": "syna.agarwala.23cse@bmu.edu.in",
+        "password": "syna1234",
+        "role": "student"
+    },
+    {
+        "email": "nishtha.phutela@bmu.edu.in",
+        "password": "n1234",
+        "role": "faculty"
+    }
+  ]
