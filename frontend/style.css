@@ -370,3 +370,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #373a44;
 }
+
+.datatable button {
+  transition: all 0.2s;
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.2rem;
+  font-size: 0.875rem;
+}
+
+.datatable button:hover {
+  opacity: 0.9;
+}

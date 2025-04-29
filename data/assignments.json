@@ -1,23 +1,16 @@
 [
   {
-    "title": "REVIEW 1",
-    "dueDate": "2025-03-13",
+    "title": "uhbsaf",
+    "instructions": "hub",
+    "dueDate": "2025-04-30",
     "points": "100",
-    "submissions": 0,
-    "instructions": "REVIEW 1"
+    "submissions": 0
   },
   {
-    "title": "REVIEW 2",
-    "dueDate": "2025-03-13",
-    "points": "40",
-    "submissions": 0,
-    "instructions": "ASD"
-  },
-  {
-    "title": "REVIEW 3",
-    "dueDate": "2025-03-14",
-    "points": "30",
-    "submissions": 0,
-    "instructions": ""
+    "title": "dg",
+    "instructions": "",
+    "dueDate": "2025-05-02",
+    "points": "100",
+    "submissions": 0
   }
 ]

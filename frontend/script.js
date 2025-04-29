@@ -1,6 +1,204 @@
+document.addEventListener("DOMContentLoaded", () => {
+  loadAssignments();
+});
 
 
-//login function
+async function handleLogin(event) {
+  event.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  try {
+      const response = await fetch('../data/users.json');
+      if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+      }
+
+      const users = await response.json();
+
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+          sessionStorage.setItem('currentUser', JSON.stringify(user));
+
+          if (user.role === 'faculty') {
+              window.location.href = 'index.html';
+          } else {
+              window.location.href = 'student.html';
+          }
+      } else {
+          alert('Invalid credentials. Please try again.');
+      }
+  } catch (error) {
+      console.error('Error fetching users:', error);
+      alert('An error occurred while logging in. Please try again later.');
+  }
+}
+
+
+//first chart of index
+document.addEventListener("DOMContentLoaded", () => 
+  
+  {
+  const attendanceCanvas = document.getElementById("attendanceChart");
+  if (attendanceCanvas) {
+      const attendanceCtx = attendanceCanvas.getContext("2d");
+      new Chart(attendanceCtx, 
+        
+        {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Attendance',
+            data: [75, 85, 70, 90, 85, 95],
+            borderColor: '#10B981',
+            tension: 0.4,
+            fill: true,
+            backgroundColor: 'rgba(16, 185, 129, 0.1)'
+          }]
+        },
+        options: 
+        {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(255, 255, 255, 0.1)' }, 
+              ticks: { color: '#9CA3AF' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#9CA3AF' }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { color: '#9CA3AF' }
+            }
+          }
+        }
+      });
+  } 
+  
+  else 
+  
+  {
+      console.error("Element with ID 'attendanceChart' not found.");
+  }
+});
+
+
+
+// redirected to create assignment
+function openAssignmentForm() 
+{
+  window.open('assignmentcreate.html', 'assignmentForm', 'width=800,height=600');
+}
+
+
+function closeDialog() 
+
+{
+  document.getElementById('successDialog').classList.add('hidden');
+}
+function loadAssignments() {
+  fetch("http://localhost:3000/assignments")
+      .then(response => response.json())
+      .then(assignments => {
+          const table = document.getElementById('assignmentsTable');
+          if (!table) {
+              console.error('Table element not found');
+              return;
+          }
+          
+          table.innerHTML = '';
+
+          assignments.forEach((assignment, index) => {
+            const row = document.createElement('tr');
+          
+            row.innerHTML = `
+              <td style="padding: 8px; text-align: center;">${index + 1}</td>
+              <td style="padding: 8px; text-align: center;">${assignment.title}</td>
+              <td style="padding: 8px; text-align: center;">${assignment.points}</td>
+              <td style="padding: 8px; text-align: center;">${assignment.dueDate}</td>
+              <td style="padding: 8px; text-align: center;">${assignment.submissions}</td>
+              <td style="padding: 8px; text-align: center;">
+                <button 
+                  onclick="editAssignment('${assignment.title}', '${assignment.dueDate}')"
+                  style="
+                    padding: 6px 12px;
+                    background-color: #3B82F6; /* blue-500 */
+                    color: white;
+                    border: none;
+                    border-radius: 6px;
+                    margin-right: 8px;
+                    cursor: pointer;
+                  "
+                  onmouseover="this.style.backgroundColor='#2563EB'" 
+                  onmouseout="this.style.backgroundColor='#3B82F6'"
+                >
+                  Edit
+                </button>
+                <button 
+                  onclick="deleteAssignment('${assignment.title}', '${assignment.dueDate}')"
+                  style="
+                    padding: 6px 12px;
+                    background-color: #EF4444; /* red-500 */
+                    color: white;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                  "
+                  onmouseover="this.style.backgroundColor='#DC2626'" 
+                  onmouseout="this.style.backgroundColor='#EF4444'"
+                >
+                  Delete
+                </button>
+              </td>
+            `;
+          
+            table.appendChild(row);
+          });
+          
+      })
+      .catch(error => {
+          console.error("Error loading assignments:", error);
+          alert("Failed to load assignments");
+      });
+}
+
+function deleteAssignment(title, date) {
+  if (!confirm('Are you sure you want to delete this assignment?')) {
+      return;
+  }
+
+  fetch(`http://localhost:3000/assignments/${encodeURIComponent(title)}/${date}`, {
+      method: 'DELETE'
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Failed to delete assignment');
+      }
+      return response.json();
+  })
+  .then(data => {
+      alert(data.message);
+      loadAssignments(); // Refresh the table
+  })
+  .catch(error => {
+      console.error("Error deleting assignment:", error);
+      alert("Failed to delete assignment");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadAssignments();
+});
+
+
 async function handleLogin(event) {
   event.preventDefault();
 
@@ -103,193 +301,134 @@ function closeDialog()
   document.getElementById('successDialog').classList.add('hidden');
 }
 
-// fetch assignments
-function loadAssignments() 
-{
-  fetch("http://localhost:3000/assignments")
-    .then(response => response.json())
-    .then(assignments => {
-      let table = document.getElementById('assignmentsTable'); 
 
-      assignments.forEach((assignment, index) => 
-        {
-        let row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${assignment.title}</td>
-          <td>${assignment.points}</td>
-          <td>${assignment.dueDate}</td>
-        `;
-        table.appendChild(row);
+
+function loadAssignments() {
+  fetch("http://localhost:3000/assignments")
+      .then(response => response.json())
+      .then(assignments => {
+          const table = document.getElementById('assignmentsTable');
+          if (!table) {
+              console.error('Table element not found');
+              return;
+          }
+          table.innerHTML = '';
+          assignments.forEach((assignment, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td class="py-2">${index + 1}</td>
+              <td class="py-2">${assignment.title}</td>
+              <td class="py-2">${assignment.points}</td>
+              <td class="py-2">${assignment.dueDate}</td>
+              <td class="py-2">${assignment.submissions}</td>
+              <td class="py-2">
+                  <button onclick="editAssignment('${assignment.title}', '${assignment.dueDate}')" 
+                          class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 mr-2">
+                      Edit
+                  </button>
+                  <button onclick="deleteAssignment('${assignment.title}', '${assignment.dueDate}')" 
+                          class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                      Delete
+                  </button>
+              </td>
+            `;
+            table.appendChild(row);
+          });
+      })
+      .catch(error => {
+          console.error("Error loading assignments:", error);
+          alert("Failed to load assignments");
       });
-    })
-    .catch(error => console.error("Error:", error));
 }
 
-// Submit assignment
+function deleteAssignment(title, date) {
+  if (!confirm('Are you sure you want to delete this assignment?')) {
+      return;
+  }
+  fetch(`http://localhost:3000/assignments/${encodeURIComponent(title)}/${date}`, {
+      method: 'DELETE'
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Failed to delete assignment');
+      }
+      return response.json();
+  })
+  .then(data => {
+      alert(data.message);
+      loadAssignments();
+  })
+  .catch(error => {
+      console.error("Error deleting assignment:", error);
+      alert("Failed to delete assignment");
+  });
+}
+
+function editAssignment(title, date) {
+  // Open the form with query parameters for edit mode
+  window.open(`assignmentcreate.html?edit=true&title=${encodeURIComponent(title)}&date=${date}`, 'assignmentForm', 'width=800,height=600');
+}
+
 function handleSubmit(event) {
   event.preventDefault();
-
-  const newAssignment = {
-    title: document.querySelector('input[type="text"]').value,
-    instructions: document.querySelector('textarea').value,
-
-
-    dueDate: document.querySelector('input[type="date"]').value,
-    points: document.querySelector('input[type="number"]').value,
-    submissions: 0
+  const form = event.target;
+  const assignmentData = {
+      title: form.querySelector('input[name="title"]').value,
+      instructions: form.querySelector('textarea[name="instructions"]').value,
+      dueDate: form.querySelector('input[name="dueDate"]').value,
+      points: form.querySelector('input[name="points"]').value,
+      submissions: 0
   };
 
-  fetch("http://localhost:3000/assignments", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newAssignment)
+  if (!assignmentData.title || !assignmentData.dueDate || !assignmentData.points) {
+      alert('Please fill in all required fields');
+      return;
+  }
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const isEditMode = urlParams.get('edit') === 'true';
+  let url, method;
+  if (isEditMode) {
+      const oldTitle = urlParams.get('title');
+      const oldDate = urlParams.get('date');
+      url = `http://localhost:3000/assignments/${encodeURIComponent(oldTitle)}/${oldDate}`;
+      method = 'PUT';
+  } else {
+      url = "http://localhost:3000/assignments";
+      method = 'POST';
+  }
+
+  fetch(url, {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(assignmentData)
   })
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) {
-        alert(data.error);
-      } else {
-        alert(data.message);
-        loadAssignments(); 
-        window.close();
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Failed to save assignment');
       }
-    })
-    .catch(error => console.error("Error:", error));
+      return response.json();
+  })
+  .then(data => {
+      alert(data.message);
+      if (window.opener) {
+        window.opener.postMessage('assignmentUpdated', '*');
+        window.location.href='index.html'
+    }
+  })
+  .catch(error => {
+      console.error("Error saving assignment:", error);
+      alert("Failed to save assignment");
+  });
 }
 
-window.addEventListener('message', function(event) 
-{
-  if (event.data === 'assignmentSubmitted') {
-    document.getElementById('successDialog').classList.remove('hidden');
-    loadAssignments(); 
+// Listener to refresh assignments on update (used in index.html)
+window.addEventListener('message', (event) => {
+  if (event.data === 'assignmentUpdated') {
+      loadAssignments();
   }
 });
 
-// Load assignments 
-window.onload = loadAssignments;
-
-document.addEventListener("DOMContentLoaded", () => 
-  {
-
-  const calendarBody = document.getElementById("calendarBody");
-  const currentMonthElement = document.getElementById("currentMonth");
-
-  const prevMonthButton = document.getElementById("prevMonth");
-  const nextMonthButton = document.getElementById("nextMonth");
-
-  let currentDate = new Date();
-  let assignments = {}; 
-
-  const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
-
-  
-  function fetchAssignments() {
-      fetch("../data/calendar.json") 
-
-          .then(response => 
-            {
-
-              if (!response.ok) throw new Error("Failed to load calendar.json");
-              return response.json();
-          })
-          .then(data => 
-            {
-              assignments = data; 
-              console.log("Assignments Loaded:", assignments);
-
-              generateCalendar(currentDate); 
-          })
-          .catch(error => console.error("Error loading assignments:", error));
-  }
-
-  
-  function getAssignmentsForDate(date) 
-  
-  {
-      const dateStr = date.toISOString().split("T")[0]; 
-      return assignments[dateStr] || [];
-  }
-
-  
-  function generateCalendar(date) {
-      console.log("Generating calendar for:", date);
-
-      const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-      const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-      const firstDayIndex = firstDay.getDay();
-      const daysInMonth = lastDay.getDate();
-
-      currentMonthElement.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
-      calendarBody.innerHTML = "";
-
-      let dayCount = 1;
-      for (let i = 0; i < 6; i++)
-         { 
-
-          let row = document.createElement("tr");
-          for (let j = 0; j < 7; j++) 
-            { 
-              let cell = document.createElement("td");
-
-
-
-              if (i === 0 && j < firstDayIndex) 
-                {
-                  cell.innerHTML = ""; 
-              } 
-              else if (dayCount <= daysInMonth)
-                 {
-                  const currentDateObj = new Date(date.getFullYear(), date.getMonth(), dayCount);
-
-                  const dayAssignments = getAssignmentsForDate(currentDateObj);
-
-                  cell.innerHTML = `<span class="date-number">${dayCount}</span>`;
-                  
-                  if (dayAssignments.length > 0) 
-                    {
-                      const assignmentList = document.createElement("div");
-
-                      assignmentList.classList.add("assignments");
-
-
-                      dayAssignments.forEach(assignment => 
-                        {
-                          let assignmentDiv = document.createElement("div");
-                          assignmentDiv.classList.add("assignment");
-
-
-                          assignmentDiv.textContent = assignment;
-                          assignmentList.appendChild(assignmentDiv);
-                      });
-                      cell.appendChild(assignmentList);
-                  }
-                  dayCount++;
-              }
-              row.appendChild(cell);
-          }
-          calendarBody.appendChild(row);
-          if (dayCount > daysInMonth) break; 
-      }
-  }
-
-  
-  prevMonthButton.addEventListener("click", () =>
-     {
-      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-
-      generateCalendar(currentDate);
-  });
-
-  
-  nextMonthButton.addEventListener("click", () => 
-    {
-      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-
-      generateCalendar(currentDate);
-  });
-
-  fetchAssignments(); 
+document.addEventListener("DOMContentLoaded", () => {
+  loadAssignments();
 });
