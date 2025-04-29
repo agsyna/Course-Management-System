@@ -429,6 +429,96 @@ window.addEventListener('message', (event) => {
   }
 });
 
+function loadCalendar() {
+  fetch("http://localhost:3000/calendar")
+    .then(response => response.json())
+    .then(calendarData => {
+      let today = new Date();
+      let currentMonth = today.getMonth();
+      let currentYear = today.getFullYear();
+
+      renderCalendar(currentMonth, currentYear, calendarData);
+
+      document.getElementById('prevMonth').addEventListener('click', () => {
+          currentMonth--;
+          if (currentMonth < 0) {
+              currentMonth = 11;
+              currentYear--;
+          }
+          renderCalendar(currentMonth, currentYear, calendarData);
+      });
+
+      document.getElementById('nextMonth').addEventListener('click', () => {
+          currentMonth++;
+          if (currentMonth > 11) {
+              currentMonth = 0;
+              currentYear++;
+          }
+          renderCalendar(currentMonth, currentYear, calendarData);
+      });
+    })
+    .catch(error => {
+      console.error("Error loading calendar data:", error);
+    });
+}
+
+function renderCalendar(month, year, calendarData) {
+  const calendarBody = document.getElementById('calendarBody');
+  const currentMonthSpan = document.getElementById('currentMonth');
+  if (!calendarBody || !currentMonthSpan) return;
+
+  calendarBody.innerHTML = '';
+
+  const monthNames = ["January", "February", "March", "April", "May", "June", 
+                      "July", "August", "September", "October", "November", "December"];
+  currentMonthSpan.textContent = `${monthNames[month]} ${year}`;
+
+  let firstDay = new Date(year, month, 1).getDay();
+  firstDay = firstDay === 0 ? 7 : firstDay; // Treat Sunday as 7
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  let date = 1;
+  for (let i = 0; i < 6; i++) {
+      const row = document.createElement('tr');
+      for (let j = 1; j <= 7; j++) {
+          const cell = document.createElement('td');
+          if (i === 0 && j < firstDay) {
+              cell.innerText = '';
+          } else if (date > daysInMonth) {
+              cell.innerText = '';
+          } else {
+              cell.innerText = date;
+              
+              // YYYY-MM-DD format
+              const monthStr = (month + 1).toString().padStart(2, '0');
+              const dayStr = date.toString().padStart(2, '0');
+              const dateStr = `${year}-${monthStr}-${dayStr}`;
+
+              if (calendarData[dateStr]) {
+                  const deadlineDiv = document.createElement('div');
+                  deadlineDiv.className = 'deadline';
+                  deadlineDiv.style.fontSize = '0.7rem';
+                  deadlineDiv.style.color = '#EF4444';
+                  deadlineDiv.innerHTML = calendarData[dateStr].join("<br>");
+                  cell.appendChild(deadlineDiv);
+              }
+              date++;
+          }
+          row.appendChild(cell);
+      }
+      calendarBody.appendChild(row);
+      if (date > daysInMonth) break;
+  }
+}
+
+// Call loadCalendar only on the calendar page.
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("calendarBody") && document.getElementById("currentMonth")) {
+      loadCalendar();
+  }
+});
 document.addEventListener("DOMContentLoaded", () => {
   loadAssignments();
 });
+
