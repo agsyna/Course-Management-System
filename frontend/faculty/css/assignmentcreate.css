@@ -17,7 +17,7 @@ body {
   display: flex;
   min-height: 100vh;
   width: 100%;
-  background-image: url("assets/BMU_bg.png");
+  background-image: url("../../assets/BMU_bg.png");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -227,4 +227,37 @@ textarea {
 
 .cancel:hover {
   background: rgba(107, 114, 128, 0.7);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button.submit {
+  background-color: #3B82F6;
+  color: white;
+}
+
+.button.submit:hover {
+  background-color: #2563EB;
+}
+
+.button.cancel {
+  background-color: #6B7280;
+  color: white;
+}
+
+.button.cancel:hover {
+  background-color: #4B5563;
 }

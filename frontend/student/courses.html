@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Registration</title>
+  <link rel="stylesheet" href="css/courses.css">
+</head>
+<body>
+  <div class="mainwrapper">
+    <aside class="leftsidebar">
+        <div class="toplogo">
+          <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" />
+        </div>
+        <nav class="navlinks">
+          <a href="student.html" class="navitem">Dashboard</a>
+          <a href="#" class="navitem active">Courses</a>
+          <a href="assignments.html" class="navitem">Assignments</a>
+          <a href="attendance.html" class="navitem">Attendance</a>
+          <a href="marks.html" class="navitem">Marks</a>
+          <a href="calendar.html" class="navitem">Schedule</a>
+          <a href="#" class="navitem">Connect</a>
+          <a href="#" class="navitem">Settings</a>
+          <a href="login.html" class="navitem">Sign Out</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h1>Course Registration</h1>
+          <span>List</span>
+        </div>
+      </header>
+
+      <div class="course-container">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+          <input type="text" placeholder="Search Courses" class="search-bar" id="searchBar">
+          <button class="add-button">+ Add New Item</button>
+        </div>
+        <table class="course-table">
+          <thead>
+            <tr>
+              <th>Courses</th>
+              <th>Course ID</th>
+              <th>Sessions</th>
+              <th>Credits</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="coursesTableBody">
+            <!-- Courses data will be populated here -->
+          </tbody>
+        </table>
+        <button class="submit-btn">SUBMIT</button>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Fetch courses data
+    async function fetchCoursesData() {
+      try {
+        const response = await fetch('http://localhost:3000/api/courses');
+        const data = await response.json();
+        populateCoursesTable(data.courses);
+        setupSearch(data.courses);
+      } catch (error) {
+        console.error('Error fetching courses data:', error);
+      }
+    }
+
+    function populateCoursesTable(coursesData) {
+      const tableBody = document.getElementById('coursesTableBody');
+      tableBody.innerHTML = '';
+
+      coursesData.forEach(course => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${course.name}</td>
+          <td>${course.courseId}</td>
+          <td>${course.sessions}</td>
+          <td>${course.credits}</td>
+          <td>${course.status}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function setupSearch(coursesData) {
+      const searchBar = document.getElementById('searchBar');
+      searchBar.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredCourses = coursesData.filter(course => 
+          course.name.toLowerCase().includes(searchTerm) ||
+          course.courseId.toLowerCase().includes(searchTerm)
+        );
+        populateCoursesTable(filteredCourses);
+      });
+    }
+
+    // Fetch data when page loads
+    document.addEventListener('DOMContentLoaded', fetchCoursesData);
+  </script>
+</body>
+</html>

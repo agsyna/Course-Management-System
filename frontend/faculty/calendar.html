@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Schedule</title>
+    <link rel="stylesheet" href="css/calendar.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="mainwrapper">
+        <aside class="leftsidebar">
+            <div class="toplogo">
+              <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+            </div>
+      
+            <nav class="navlinks">
+                <a href="index.html" class="navitem active">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                    </path>
+                  </svg>
+                  Dashboard
+                </a>
+                <a href="#" class="navitem">Courses</a>
+                <a href="assignmentcreate.html" class="navitem">Assignments</a>
+                <a href="#" class="navitem">Attendance</a>
+                <a href="calendar.html" class="navitem">Schedule</a>
+                <a href="#" class="navitem">Connect</a>
+                <a href="#" class="navitem">Settings</a>
+                <a href="../login.html" class="navitem">Sign Out</a>
+              </nav>
+          </aside>
+      
+
+        <main class="rightcontent">
+            <div class="calendar-container">
+                <div class="welcomebox">
+                    <h1 class="text-2xl font-semibold">Schedule Management</h1>
+                    <button onclick="openScheduleForm()" class="add-schedule-btn">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        Add Schedule
+                    </button>
+                </div>
+
+                <div class="calendar-header">
+                    <button id="prevMonth" class="calendar-nav-btn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <h2 id="currentMonth" class="text-xl font-semibold"></h2>
+                    <button id="nextMonth" class="calendar-nav-btn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-weekdays grid grid-cols-7 gap-2 mb-2 text-center text-gray-400 font-semibold">
+                      <div>Mon</div>
+                      <div>Tue</div>
+                      <div>Wed</div>
+                      <div>Thu</div>
+                      <div>Fri</div>
+                      <div>Sat</div>
+                      <div>Sun</div>
+                    </div>
+                    <div id="calendarBody" class="calendar-days grid grid-cols-7 gap-2"></div>
+                  </div>
+                  
+
+                <div id="dayDetails" class="day-details hidden">
+                    <div class="details-header">
+                        <h3 id="selectedDate" class="text-lg font-semibold"></h3>
+                        <button id="closeDetails" class="close-btn">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="details-content">
+                        <div class="schedule-section">
+                            <h4>Classes</h4>
+                            <div id="daySchedule" class="schedule-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="calendar.js"></script>
+</body>
+</html> 

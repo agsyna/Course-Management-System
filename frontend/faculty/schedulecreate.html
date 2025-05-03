@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Schedule</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/schedulecreate.css" />
+</head>
+<body class="page-bg">
+    <div class="mainwrapper">
+        <aside class="leftsidebar">
+            <div class="toplogo">
+              <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+            </div>
+      
+            <nav class="navlinks">
+              <a href="index.html" class="navitem active">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                  </path>
+                </svg>
+                Dashboard
+              </a>
+              <a href="#" class="navitem">Courses</a>
+              <a href="assignmentcreate.html" class="navitem">Assignments</a>
+              <a href="#" class="navitem">Attendance</a>
+              <a href="calendar.html" class="navitem">Schedule</a>
+              <a href="#" class="navitem">Connect</a>
+              <a href="#" class="navitem">Settings</a>
+              <a href="../login.html" class="navitem">Sign Out</a>
+            </nav>
+          </aside>
+
+          <div class="flex justify-center items-center flex-1">
+            <div class="form-container bg-white p-8 rounded-xl shadow-lg">
+              <h2 class="form-title text-2xl font-bold text-blue-600 text-center mb-6">Create Schedule</h2>
+              <form id="scheduleForm" onsubmit="handleSubmit(event)">
+                <div class="input-group">
+                  <label for="day">Day</label>
+                  <select id="day" name="day" required>
+                    <option value="">Pick a day</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                  </select>
+                </div>
+          
+                <div class="input-group">
+                  <label for="course">Course</label>
+                  <input type="text" id="course" name="course" required />
+                </div>
+          
+                <div class="input-group">
+                  <label for="section">Section</label>
+                  <input type="text" id="section" name="section" required />
+                </div>
+          
+                <div class="input-group">
+                  <label for="time">Time</label>
+                  <input type="text" id="time" name="time" placeholder="e.g. 9:00 AM - 10:30 AM" required />
+                </div>
+          
+                <div class="input-group">
+                  <label for="location">Location</label>
+                  <input type="text" id="location" name="location" required />
+                </div>
+          
+                <div class="button-group">
+                  <button type="submit">Save Schedule</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+  </div>
+
+  <script>
+    let userData = JSON.parse(sessionStorage.getItem('userData'));
+  
+    async function handleSubmit(event) {
+      event.preventDefault();
+  
+      const formData = {
+        section: document.getElementById('section').value,  // CSE-A, etc.
+        schedule: {
+          [document.getElementById('day').value]: [{
+            course: document.getElementById('course').value,
+            time: document.getElementById('time').value,
+            location: document.getElementById('location').value,
+            faculty: userData.username
+          }]
+        }
+      };
+  
+      try {
+        const response = await fetch('http://localhost:3000/api/faculty/schedule', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+  
+        if (response.ok) {
+          alert('Schedule created successfully!');
+          window.opener.location.reload();
+          window.close();
+        } else {
+          const error = await response.json();
+          alert(error.message || 'Failed to create schedule');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while creating the schedule');
+      }
+    }
+  </script>
+  
+</body>
+</html>

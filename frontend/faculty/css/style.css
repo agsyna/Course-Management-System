@@ -16,7 +16,7 @@ body {
   display: flex;
   min-height: 100vh;
   padding: 1rem;
-  background-image: url("assets/BMU_bg.png");
+  background-image: url("../../assets/BMU_bg.png");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -37,7 +37,6 @@ body {
   position: relative;
   z-index: 2;
 }
-
 
 .leftsidebar {
   width: 16rem;
@@ -80,6 +79,7 @@ body {
   background-color: rgba(75, 85, 99, 0.5);
   color: white;
 }
+
 .rightcontent {
   flex: 1;
   padding: 2rem;
@@ -292,35 +292,42 @@ body {
   border-radius: 10px;
   padding: 15px;
 }
+
 .connect-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
+
 .connect-header h2 {
   margin: 0;
   font-size: 18px;
 }
+
 .connect-header a {
   color: #4cafef;
   text-decoration: none;
   font-size: 14px;
 }
+
 .connect {
   background: #252525;
   border-radius: 8px;
   padding: 10px;
 }
+
 .connect-item {
   display: flex;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #333;
 }
+
 .connect-item:last-child {
   border-bottom: none;
 }
+
 .connect-icon {
   width: 35px;
   height: 35px;
@@ -333,13 +340,16 @@ body {
   color: white;
   margin-right: 10px;
 }
+
 .connect-text {
   flex-grow: 1;
 }
+
 .connect-text h3 {
   margin: 0;
   font-size: 16px;
 }
+
 .connect-text p {
   margin: 2px 0 0;
   font-size: 13px;
@@ -349,6 +359,7 @@ body {
   text-overflow: ellipsis;
   width: 200px;
 }
+
 .connect-time {
   font-size: 12px;
   color: #777;
@@ -369,4 +380,97 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #373a44;
+}
+
+.datatable button {
+  transition: all 0.2s;
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.2rem;
+  font-size: 0.875rem;
+}
+
+.datatable button:hover {
+  opacity: 0.9;
+}
+
+/* Assignment Table Action Buttons */
+.edit-btn, .delete-btn {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-btn {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3B82F6;
+}
+
+.edit-btn:hover {
+    background-color: rgba(59, 130, 246, 0.2);
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+}
+
+.delete-btn:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+    transform: scale(1.05);
+}
+
+/* Success Dialog */
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog.hidden {
+    display: none;
+}
+
+.dialogbox {
+    background-color: #1F2937;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+}
+
+.dialogbox h3 {
+    color: #F3F4F6;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.dialogbox p {
+    color: #9CA3AF;
+    margin-bottom: 1.5rem;
+}
+
+.dialogbox button {
+    background-color: #3B82F6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.dialogbox button:hover {
+    background-color: #2563EB;
 }

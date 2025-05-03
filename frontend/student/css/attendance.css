@@ -16,7 +16,7 @@ body {
   display: flex;
   min-height: 100vh;
   padding: 1rem;
-  background-image: url("assets/BMU_bg.png");
+  background-image: url("../../assets/BMU_bg.png");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -153,7 +153,7 @@ body {
   }
 
 
-  .marks-container {
+  .attendance-container {
     width: 100%;
     margin: auto;
     background-color: #222;
@@ -161,16 +161,16 @@ body {
     border-radius: 10px;
     height: 80%;
 }
-.marks-header {
+.attendance-header {
     font-size: 24=px;
     font-weight: bold;
     margin-bottom: 10px;
 }
-.marks-list {
+.attendance-list {
     display: flex;
     flex-direction: column;
 }
-.marks-row {
+.attendance-row {
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -179,12 +179,12 @@ body {
     margin-bottom: 5px;
     background-color: #2a2a2a;
 }
-.marks-row div {
+.attendance-row div {
     flex: 1;
     text-align: center;
     margin-bottom: 10px;
 }
-.marks-header-row {
+.attendance-header-row {
     display: flex;
     justify-content: space-between;
     padding: 20px;

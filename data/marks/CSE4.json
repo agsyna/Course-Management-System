@@ -1,0 +1,46 @@
+{
+  "marks": [
+    {
+      "code": "CSE2032",
+      "courseName": "COA",
+      "marks": "40/48",
+      "weightage": "83.3%",
+      "total": "0.0"
+    },
+    {
+      "code": "CSE2024",
+      "courseName": "Software Engineering",
+      "marks": "65/78",
+      "weightage": "83.3%",
+      "total": "0.0"
+    },
+    {
+      "code": "PSP2709",
+      "courseName": "Design Thinking",
+      "marks": "58/60",
+      "weightage": "96.66%",
+      "total": "0.0"
+    },
+    {
+      "code": "PSP3601",
+      "courseName": "Project - 2",
+      "marks": "58/60",
+      "weightage": "96.66%",
+      "total": "0.0"
+    },
+    {
+      "code": "PSP2005",
+      "courseName": "Seminar CSE",
+      "marks": "50/100",
+      "weightage": "50.00%",
+      "total": "0.0"
+    },
+    {
+      "code": "CSE2032",
+      "courseName": "Machine Learning",
+      "marks": "65/78",
+      "weightage": "83.3%",
+      "total": "0.0"
+    }
+  ]
+} 

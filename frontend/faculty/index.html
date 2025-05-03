@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -18,11 +18,11 @@
 
     <aside class="leftsidebar">
       <div class="toplogo">
-        <img src="assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+        <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
       </div>
 
       <nav class="navlinks">
-        <a href="#" class="navitem active">
+        <a href="index.html" class="navitem active">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
@@ -36,7 +36,7 @@
         <a href="calendar.html" class="navitem">Schedule</a>
         <a href="#" class="navitem">Connect</a>
         <a href="#" class="navitem">Settings</a>
-        <a href="login.html" class="navitem">Sign Out</a>
+        <a href="../login.html" class="navitem">Sign Out</a>
       </nav>
     </aside>
 
@@ -55,7 +55,7 @@
               </path>
             </svg>
           </button>
-          <img src="assets/BMU_bg.png" alt="Profile" class="profpic" />
+          <img src="../assets/BMU_bg.png" alt="Profile" class="profpic" />
         </div>
       </div>
 
@@ -64,7 +64,7 @@
         <div class="statbox1">
           <div class="boxwrap">
 
-            <img src="assets/icons/attendance.png" alt="attendance_icon" class="w-8 h-8">
+            <img src="../assets/icons/attendance.png" alt="attendance_icon" class="w-8 h-8">
 
             <div class="txtbox">
               <h3 class="text-sm text-gray-400">Attendance</h3>
@@ -76,7 +76,7 @@
         <div class="statbox2">
           <div class="boxwrap">
 
-            <img src="assets/icons/courses.png" alt="" class="w-8 h-8">
+            <img src="../assets/icons/courses.png" alt="" class="w-8 h-8">
             <!-- </div> -->
             <div class="txtbox">
               <h3 class="text-sm text-gray-400">Courses</h3>
@@ -90,7 +90,7 @@
         <div class="statbox2">
           <div class="boxwrap">
             <!-- <div class="iconbox green"> -->
-            <img src="assets/icons/assignment.png" alt="" class="w-8 h-8">
+            <img src="../assets/icons/assignment.png" alt="" class="w-8 h-8">
             <!-- </div> -->
             <div class="txtbox">
               <h3 class="text-sm text-gray-400">Assignments</h3>
@@ -104,7 +104,7 @@
         <div class="statbox2">
           <div class="boxwrap">
             <!-- <div class="iconbox green"> -->
-            <img src="assets/icons/feedback.png" alt="" class="w-8 h-8">
+            <img src="../assets/icons/feedback.png" alt="" class="w-8 h-8">
             <!-- </div> -->
             <div class="txtbox">
               <h3 class="text-sm text-gray-400">Mentee</h3>
@@ -125,13 +125,16 @@
           </div>
           <table class="datatable">
             <thead>
-              <tr class="text-gray-400 text-sm">
-                <th class="text-left pb-4">S.No.</th>
-                <th class="text-left pb-4">Name</th>
-                <th class="text-left pb-4">Points</th>
-                <th class="text-left pb-4">Deadline</th>
-                <th class="text-left pb-4">Submissions</th>
-              </tr>
+          <thead>
+            <tr class="text-gray-400 text-sm">
+              <th class="text-left pb-4">S.No.</th>
+              <th class="text-left pb-4">Name</th>
+              <th class="text-left pb-4">Points</th>
+              <th class="text-left pb-4">Deadline</th>
+              <th class="text-left pb-4">Submissions</th>
+              <th class="text-left pb-4">Actions</th>
+            </tr>
+          </thead>
             </thead>
             <tbody id="assignmentsTable" class="text-sm"></tbody>
           </table>

@@ -1,12 +1,24 @@
-[
+{
+  "users": [
     {
-        "email": "syna.agarwala.23cse@bmu.edu.in",
-        "password": "syna1234",
-        "role": "student"
+      "username": "syna.agarwala.23cse@bmu.edu.in",
+      "name": "Syna Agarwala",
+      "password": "syna1234",
+      "role": "student",
+      "section": "CSE4"
     },
     {
-        "email": "nishtha.phutela@bmu.edu.in",
-        "password": "n1234",
-        "role": "faculty"
+      "username": "kartik.mehtani.23cse@bmu.edu.in",
+        "name":"Kartik Mehtani",
+      "password": "kartik1234",
+      "role": "student",
+      "section": "CSE6"
+    },
+    {
+      "username": "gautam.gupta@bmu.edu.in",
+      "name":"Gautam Gupta",
+      "password": "gg1234",
+      "role": "faculty"
     }
   ]
+}

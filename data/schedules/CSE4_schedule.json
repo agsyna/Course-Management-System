@@ -1,0 +1,126 @@
+{
+  "section": "CSE4",
+  "schedule": [
+    {
+      "day": "Saturday",
+      "classes": [
+        {
+          "time": "9:15 AM",
+          "course": "Database Management",
+          "faculty": "Dr. Nishtha Phutela",
+          "location": "NB 208"
+        },
+        {
+          "time": "10:15 AM",
+          "course": "Software Engineering",
+          "faculty": "Dr. Nishtha Phutela",
+          "location": "NB 208"
+        },
+        {
+          "time": "12:15 PM",
+          "course": "Project 2",
+          "faculty": "Dr. Mahima Goel",
+          "location": "NB 211"
+        },
+        {
+          "time": "2:15 PM",
+          "course": "Machine Learning",
+          "faculty": "Prof. Akanksha Rai",
+          "location": "GAU 211"
+        }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "classes": [
+        {
+          "time": "9:15 AM",
+          "course": "Operating Systems",
+          "faculty": "Dr. Rajesh Kumar",
+          "location": "NB 210"
+        },
+        {
+          "time": "11:15 AM",
+          "course": "Database Management",
+          "faculty": "Dr. Nishtha Phutela",
+          "location": "NB 208"
+        },
+        {
+          "time": "2:15 PM",
+          "course": "Machine Learning",
+          "faculty": "Prof. Akanksha Rai",
+          "location": "GAU 211"
+        }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "classes": [
+        {
+          "time": "9:15 AM",
+          "course": "Software Engineering",
+          "faculty": "Dr. Nishtha Phutela",
+          "location": "NB 208"
+        },
+        {
+          "time": "11:15 AM",
+          "course": "Project 2",
+          "faculty": "Dr. Mahima Goel",
+          "location": "NB 211"
+        },
+        {
+          "time": "2:15 PM",
+          "course": "Operating Systems",
+          "faculty": "Dr. Rajesh Kumar",
+          "location": "NB 210"
+        }
+      ]
+    },
+    {
+      "day": "Thursday",
+      "classes": [
+        {
+          "time": "9:15 AM",
+          "course": "Machine Learning",
+          "faculty": "Prof. Akanksha Rai",
+          "location": "GAU 211"
+        },
+        {
+          "time": "11:15 AM",
+          "course": "Operating Systems",
+          "faculty": "Dr. Rajesh Kumar",
+          "location": "NB 210"
+        },
+        {
+          "time": "2:15 PM",
+          "course": "Database Management",
+          "faculty": "Dr. Nishtha Phutela",
+          "location": "NB 208"
+        }
+      ]
+    },
+    {
+      "day": "Friday",
+      "classes": [
+        {
+          "time": "9:15 AM",
+          "course": "Project 2",
+          "faculty": "Dr. Mahima Goel",
+          "location": "NB 211"
+        },
+        {
+          "time": "11:15 AM",
+          "course": "Software Engineering",
+          "faculty": "Dr. Nishtha Phutela",
+          "location": "NB 208"
+        },
+        {
+          "time": "2:15 PM",
+          "course": "Operating Systems",
+          "faculty": "Dr. Rajesh Kumar",
+          "location": "NB 210"
+        }
+      ]
+    }
+  ]
+} 

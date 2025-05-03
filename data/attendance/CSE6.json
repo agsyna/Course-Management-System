@@ -1,0 +1,39 @@
+{
+  "attendance": [
+    {
+      "code": "CSE2709",
+      "courseName": "COA",
+      "attendanceCount": "40/50",
+      "percentage": "80%",
+      "afterCapping": "0.0"
+    },
+    {
+      "code": "CSE3005",
+      "courseName": "SE",
+      "attendanceCount": "72/80",
+      "percentage": "90%",
+      "afterCapping": "0.0"
+    },
+    {
+      "code": "CSE3709",
+      "courseName": "MAD",
+      "attendanceCount": "54/56",
+      "percentage": "96.42%",
+      "afterCapping": "0.0"
+    },
+    {
+      "code": "PSP2709",
+      "courseName": "Design Thinking",
+      "attendanceCount": "59/60",
+      "percentage": "98.33%",
+      "afterCapping": "0.0"
+    },
+    {
+      "code": "CSE2032",
+      "courseName": "Machine Learning",
+      "attendanceCount": "70/78",
+      "percentage": "89.74%",
+      "afterCapping": "0.0"
+    }
+  ]
+} 

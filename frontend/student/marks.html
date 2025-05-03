@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal</title>
+  <link rel="stylesheet" href="css/marks.css">
+</head>
+<body>
+  <div class="mainwrapper">
+
+    <aside class="leftsidebar">
+        <div class="toplogo">
+          <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+        </div>
+  
+        <nav class="navlinks">
+        <a href="student.html" class="navitem">Dashboard</a>
+          <a href="courses.html" class="navitem">Courses</a>
+          <a href="listassignments.html" class="navitem">Assignments</a>
+          <a href="attendance.html" class="navitem">Attendance</a>
+          <a href="#" class="navitem active">Marks</a>
+          <a href="calendar.html" class="navitem">Schedule</a>
+          <a href="#" class="navitem">Connect</a>
+          <a href="#" class="navitem">Settings</a>
+          <a href="login.html" class="navitem">Sign Out</a>
+        </nav>
+      </aside>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h1 id="currentPage">Marks</h1>
+          <span>List</span>
+        </div>
+
+      </header>
+
+      <div class="marks-container">
+        <div class="marks-header-row">
+            <div>Code</div>
+            <div>Course Name</div>
+            <div>Marks</div>
+            <div>Weightage</div>
+            <div>Total</div>
+        </div>
+        <div class="marks-list" id="marksList">
+            <!-- Marks data will be populated here -->
+        </div>
+    </div>
+    
+    </main>
+  </div>
+  <script>
+    // Fetch marks data
+    async function fetchMarksData() {
+      try {
+        const response = await fetch('http://localhost:3000/api/marks/CSE6');
+        const data = await response.json();
+        populateMarksList(data.marks);
+      } catch (error) {
+        console.error('Error fetching marks data:', error);
+      }
+    }
+
+    function populateMarksList(marksData) {
+      const marksList = document.getElementById('marksList');
+      marksList.innerHTML = '';
+
+      marksData.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'marks-row';
+        row.innerHTML = `
+          <div>${item.code}</div>
+          <div class="blue">${item.courseName}</div>
+          <div class="blue">${item.marks}</div>
+          <div class="blue">${item.weightage}</div>
+          <div class="yellow">${item.total}</div>
+        `;
+        marksList.appendChild(row);
+      });
+    }
+
+    // Fetch data when page loads
+    document.addEventListener('DOMContentLoaded', fetchMarksData);
+  </script>
+</body>
+</html>
