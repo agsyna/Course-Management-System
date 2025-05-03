@@ -38,7 +38,6 @@ body {
   z-index: 2;
 }
 
-
 .leftsidebar {
   width: 16rem;
   background: rgba(42, 45, 53, 0.95);
@@ -80,6 +79,7 @@ body {
   background-color: rgba(75, 85, 99, 0.5);
   color: white;
 }
+
 .rightcontent {
   flex: 1;
   padding: 2rem;
@@ -292,35 +292,42 @@ body {
   border-radius: 10px;
   padding: 15px;
 }
+
 .connect-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
+
 .connect-header h2 {
   margin: 0;
   font-size: 18px;
 }
+
 .connect-header a {
   color: #4cafef;
   text-decoration: none;
   font-size: 14px;
 }
+
 .connect {
   background: #252525;
   border-radius: 8px;
   padding: 10px;
 }
+
 .connect-item {
   display: flex;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #333;
 }
+
 .connect-item:last-child {
   border-bottom: none;
 }
+
 .connect-icon {
   width: 35px;
   height: 35px;
@@ -333,13 +340,16 @@ body {
   color: white;
   margin-right: 10px;
 }
+
 .connect-text {
   flex-grow: 1;
 }
+
 .connect-text h3 {
   margin: 0;
   font-size: 16px;
 }
+
 .connect-text p {
   margin: 2px 0 0;
   font-size: 13px;
@@ -349,6 +359,7 @@ body {
   text-overflow: ellipsis;
   width: 200px;
 }
+
 .connect-time {
   font-size: 12px;
   color: #777;

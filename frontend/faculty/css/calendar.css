@@ -1,0 +1,400 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    min-height: 100vh;
+  }
+  
+  .mainwrapper {
+    display: flex;
+    min-height: 100vh;
+    padding: 1rem;
+    background-image: url("../../assets/BMU_bg.png");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  .mainwrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    z-index: 1;
+  }
+  
+  .mainwrapper > * {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .leftsidebar {
+    width: 16rem;
+    background: rgba(42, 45, 53, 0.95);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: calc(100vh - 2rem);
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+  
+  .toplogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .navlinks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .navitem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #9CA3AF;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    background: rgba(75, 85, 99, 0.1);
+    transition: all 0.2s;
+  }
+  
+  .navitem.active,
+  .navitem:hover {
+    background-color: rgba(75, 85, 99, 0.5);
+    color: white;
+  }
+  
+  .rightcontent {
+    flex: 1;
+    padding: 2rem;
+    background: rgba(26, 28, 35, 0.95);
+    border-radius: 1rem;
+    height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+  
+  .topsection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .welcomebox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .welcomebox h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  .welcomebox p {
+    color: #9CA3AF;
+  }
+  
+  .userbox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .notifbtn {
+    background: rgba(42, 45, 53, 0.8);
+    border: none;
+    color: #9CA3AF;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .profpic {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+  }
+  
+.calendar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(26, 28, 35, 0.95);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.calendar-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.calendar-nav button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: rgba(42, 45, 53, 0.8);
+    color: #9CA3AF;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calendar-nav button:hover {
+    background: rgba(75, 85, 99, 0.5);
+    color: white;
+}
+
+
+
+
+.calendar-grid {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.5rem;
+}
+
+.calendar-grid th {
+    padding: 1rem;
+    text-align: center;
+    background: rgba(42, 45, 53, 0.8);
+    color: #9CA3AF;
+    font-weight: 600;
+    border-radius: 0.5rem;
+}
+
+.calendar-grid td {
+    padding: 1rem;
+    text-align: center;
+    background: rgba(42, 45, 53, 0.4);
+    color: #9CA3AF;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 0.5rem;
+}
+
+.calendar-grid td:hover {
+    background: rgba(75, 85, 99, 0.5);
+    color: white;
+}
+
+.calendar-grid td.today {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60A5FA;
+    font-weight: 600;
+}
+
+/* Schedule Tooltip */
+.schedule-tooltip {
+    position: absolute;
+    background: rgba(42, 45, 53, 0.95);
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    min-width: 250px;
+    color: white;
+}
+
+.tooltip-header {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(75, 85, 99, 0.5);
+    color: #60A5FA;
+}
+
+.tooltip-section {
+    margin-top: 0.5rem;
+}
+
+.section-title {
+    font-weight: 500;
+    color: #9CA3AF;
+    margin-bottom: 0.5rem;
+}
+
+.tooltip-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+.tooltip-item:last-child {
+    border-bottom: none;
+}
+
+.tooltip-item .time {
+    font-weight: 500;
+    color: white;
+}
+
+.tooltip-item .course {
+    color: #9CA3AF;
+}
+
+.tooltip-item .location {
+    color: #9CA3AF;
+    font-size: 0.875rem;
+}
+
+/* Day Details Panel */
+.day-details {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    background: rgba(26, 28, 35, 0.95);
+    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    color: white;
+}
+
+.day-details.show {
+    transform: translateX(0);
+}
+
+.day-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.close-details {
+    padding: 0.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #9CA3AF;
+    transition: color 0.2s;
+}
+
+.close-details:hover {
+    color: white;
+}
+
+.schedule-item {
+    padding: 1rem;
+    background: rgba(42, 45, 53, 0.4);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.schedule-item .time {
+    font-weight: 600;
+    color: #60A5FA;
+    margin-bottom: 0.5rem;
+}
+
+.schedule-item .course {
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.schedule-item .details {
+    display: flex;
+    gap: 1rem;
+    color: #9CA3AF;
+    font-size: 0.875rem;
+}
+
+.no-data {
+    text-align: center;
+    color: #9CA3AF;
+    padding: 2rem;
+}
+
+/* Add Schedule Button */
+.add-schedule-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(96, 165, 250, 0.2);
+    color: #60A5FA;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-schedule-btn:hover {
+    background: rgba(96, 165, 250, 0.3);
+    color: white;
+}
+
+.add-schedule-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentColor;
+} 
+
+.calendar-weekdays div,
+.calendar-days div {
+  background: rgba(42, 45, 53, 0.8);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.calendar-days div {
+  background: rgba(42, 45, 53, 0.4);
+  color: #9CA3AF;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0.5rem;
+}
+
+.calendar-days div:hover {
+  background: rgba(75, 85, 99, 0.5);
+  color: white;
+}
+
+
+.calendar-body{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+.calendar-days{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

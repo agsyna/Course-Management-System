@@ -11,6 +11,7 @@ const ASSIGNMENTS_FILE = "../data/assignments.json";
 const CALENDAR_FILE = "../data/calendar.json";
 const USERS_FILE = "../data/users.json";
 const SCHEDULES_DIR = path.join(__dirname, '../data/schedules');
+const FACULTY_DIR = path.join(__dirname, '../data/faculty');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -212,6 +213,26 @@ app.get('/api/schedule/:section', (req, res) => {
             res.status(500).json({ error: 'Failed to parse schedule data' });
         }
     });
+});
+
+// POST new schedule for a section
+app.post('/api/faculty/schedule', (req, res) => {
+    const { section, schedule } = req.body;
+
+    if (!section || !schedule) {
+        return res.status(400).json({ message: "Section and schedule data are required." });
+    }
+
+    const scheduleFile = path.join(FACULTY_DIR, `${section}_schedule.json`);
+
+    try {
+        // Write the schedule to the respective file
+        writeJsonFile(scheduleFile, schedule);
+        res.json({ message: "Schedule created successfully!" });
+    } catch (error) {
+        console.error("Error writing schedule:", error);
+        res.status(500).json({ message: "Failed to create schedule." });
+    }
 });
 
 app.listen(PORT, () => {
