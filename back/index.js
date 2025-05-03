@@ -10,6 +10,7 @@ const PORT = 3000;
 const ASSIGNMENTS_FILE = "../data/assignments.json";
 const CALENDAR_FILE = "../data/calendar.json";
 const USERS_FILE = "../data/users.json";
+const SCHEDULES_DIR = path.join(__dirname, '../data/schedules');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -190,6 +191,27 @@ app.put("/assignments/:oldTitle/:oldDate", (req, res) => {
     writeJsonFile(CALENDAR_FILE, calendar);
 
     res.json({ message: "Assignment updated successfully!" });
+});
+
+// Schedule endpoint
+app.get('/api/schedule/:section', (req, res) => {
+    const section = req.params.section;
+    const scheduleFile = path.join(SCHEDULES_DIR, `${section}_schedule.json`);
+    
+    fs.readFile(scheduleFile, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading schedule file:', err);
+            return res.status(500).json({ error: 'Failed to read schedule data' });
+        }
+        
+        try {
+            const scheduleData = JSON.parse(data);
+            res.json(scheduleData);
+        } catch (error) {
+            console.error('Error parsing schedule data:', error);
+            res.status(500).json({ error: 'Failed to parse schedule data' });
+        }
+    });
 });
 
 app.listen(PORT, () => {

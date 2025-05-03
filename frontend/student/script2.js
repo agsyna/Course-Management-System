@@ -180,9 +180,79 @@ async function fetchCourses() {
     }
 }
 
-// Fetch all data when page loads
+// Fetch and display schedule
+async function fetchSchedule() {
+    try {
+        const response = await fetch(`http://localhost:3000/api/schedule/${userData.section}`);
+        const data = await response.json();
+        displayTodaySchedule(data.schedule);
+        displayWeeklySchedule(data.schedule);
+    } catch (error) {
+        console.error('Error fetching schedule:', error);
+    }
+}
+
+function displayTodaySchedule(schedule) {
+    const scheduleTableBody = document.querySelector('.schedulebox tbody');
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    
+    const todayClasses = schedule.find(day => day.day === today)?.classes || [];
+    
+    if (todayClasses.length === 0) {
+        scheduleTableBody.innerHTML = '<tr><td colspan="4" class="text-center text-gray-500">No classes scheduled for today</td></tr>';
+        return;
+    }
+
+    scheduleTableBody.innerHTML = todayClasses.map(classItem => `
+        <tr>
+            <td>${classItem.time}</td>
+            <td>${classItem.course}</td>
+            <td>${classItem.faculty}</td>
+            <td>${classItem.location}</td>
+        </tr>
+    `).join('');
+}
+
+function displayWeeklySchedule(schedule) {
+    const attendanceChart = document.getElementById('attendanceChart');
+    const ctx = attendanceChart.getContext('2d');
+    
+    // Clear any existing chart
+    if (window.attendanceChart) {
+        window.attendanceChart.destroy();
+    }
+
+    // Create a new chart with schedule data
+    window.attendanceChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: schedule.map(day => day.day),
+            datasets: [{
+                label: 'Classes per Day',
+                data: schedule.map(day => day.classes.length),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Add schedule fetching to the DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', () => {
     fetchAttendanceData();
     fetchAssignments();
     fetchCourses();
+    fetchSchedule();
 });

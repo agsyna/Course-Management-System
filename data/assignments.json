@@ -1,12 +1,5 @@
 [
   {
-    "title": "uhbsaf",
-    "instructions": "hub",
-    "dueDate": "2025-04-30",
-    "points": "100",
-    "submissions": 0
-  },
-  {
     "title": "dg",
     "instructions": "",
     "dueDate": "2025-05-02",
@@ -19,5 +12,12 @@
     "points": "100",
     "submissions": 0,
     "instructions": "erfgf"
+  },
+  {
+    "title": "ads",
+    "dueDate": "2025-05-07",
+    "points": 100,
+    "submissions": 0,
+    "instructions": "sd"
   }
 ]

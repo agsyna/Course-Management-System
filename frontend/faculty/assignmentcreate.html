@@ -45,8 +45,8 @@
             <div class="form-group">
               <label>Assign to...</label>
               <select name="section" style="padding: 10px;">
-                <option>CSE 4</option>
-                <option>CSE 5</option>
+                <option>CSE4</option>
+                <option>CSE6</option>
                 <option>CSE 2</option>
               </select>
             </div>
@@ -78,7 +78,6 @@
     </main>
   </div>
 
-  <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -112,6 +111,68 @@
           });
       }
     });
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const formData = {
+        title: form.title.value,
+        dueDate: form.dueDate.value,
+        points: parseInt(form.points.value),
+        instructions: form.instructions.value,
+        submissions: 0
+      };
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const isEditMode = urlParams.get('edit') === 'true';
+
+      if (isEditMode && window.originalAssignment) {
+        // Update existing assignment
+        fetch(`http://localhost:3000/assignments/${encodeURIComponent(window.originalAssignment.oldTitle)}/${window.originalAssignment.oldDate}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => {
+          if (response.ok) {
+            window.opener.showSuccessDialog('Assignment updated successfully!');
+            window.opener.loadAssignments();
+            window.close();
+          } else {
+            throw new Error('Failed to update assignment');
+          }
+        })
+        .catch(error => {
+          console.error("Error updating assignment:", error);
+          alert("Failed to update assignment");
+        });
+      } else {
+        // Create new assignment
+        fetch("http://localhost:3000/assignments", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => {
+          if (response.ok) {
+            window.opener.showSuccessDialog('Assignment created successfully!');
+            window.opener.loadAssignments();
+            window.close();
+          } else {
+            throw new Error('Failed to create assignment');
+          }
+        })
+        .catch(error => {
+          console.error("Error creating assignment:", error);
+          alert("Failed to create assignment");
+        });
+      }
+    }
   </script>
 </body>
 

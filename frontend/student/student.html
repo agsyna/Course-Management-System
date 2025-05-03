@@ -116,42 +116,21 @@
         <div class="bottomgrid">
           <div class="schedulebox">
             <h3>Schedule</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Name</th>
-                  <th>Faculty</th>
-                  <th>Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>9:15</td>
-                  <td>Database Management</td>
-                  <td>Dr. Nishtha Phutela</td>
-                  <td>NB 208</td>
-                </tr>
-                <tr>
-                  <td>10:15</td>
-                  <td>Software Engineering</td>
-                  <td>Dr. Nishtha Phutela</td>
-                  <td>NB 208</td>
-                </tr>
-                <tr>
-                  <td>12:15</td>
-                  <td>Project 2</td>
-                  <td>Dr. Mahima Goel</td>
-                  <td>NB 211</td>
-                </tr>
-                <tr>
-                  <td>2:15</td>
-                  <td>Machine Learning</td>
-                  <td>Prof. Akanksha Rai</td>
-                  <td>GAU 211</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="schedule-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Name</th>
+                    <th>Faculty</th>
+                    <th>Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Schedule will be populated here -->
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="attendancebox">
             <div class="boxheader">
@@ -166,10 +145,11 @@
             <canvas id="attendanceChart"></canvas>
           </div>
         </div>
+
       </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../script2.js"></script>
+    <script src="script2.js"></script>
   </body>
 </html>

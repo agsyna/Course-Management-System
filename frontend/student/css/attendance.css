@@ -16,7 +16,7 @@ body {
   display: flex;
   min-height: 100vh;
   padding: 1rem;
-  background-image: url("assets/BMU_bg.png");
+  background-image: url("../../assets/BMU_bg.png");
   background-size: cover;
   background-position: center;
   position: relative;
