@@ -2,11 +2,18 @@
     {
         "email": "syna.agarwala.23cse@bmu.edu.in",
         "password": "syna1234",
-        "role": "student"
+        "role": "student",
+        "Enrollment":"230751"
     },
     {
         "email": "nishtha.phutela@bmu.edu.in",
         "password": "n1234",
         "role": "faculty"
+    },
+    {
+        "email": "kartik.mehtani.23cse@bmu.edu.in",
+        "password": "kartik1234",
+        "role": "student",
+        "Enrollment":"230791"
     }
   ]

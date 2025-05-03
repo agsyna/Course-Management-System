@@ -41,8 +41,25 @@ function writeJsonFile(filePath, data) {
     }
 }
 
+app.get("/submitassignment/:id",(req,res)=>{
+    let {id} = req.params;
+    console.log(id);
+    const assignments = readJsonFile(ASSIGNMENTS_FILE);
+    assignments[id].submitted = true;
+    writeJsonFile(ASSIGNMENTS_FILE,assignments);
+})
+
+app.get("/getAssignment/:id",(req,res)=>{
+    let {id} = req.params;
+    console.log(id);
+    const assignments = readJsonFile(ASSIGNMENTS_FILE);
+    return assignments[id];
+})
+
+
+
 // fetch all assignments
-app.get("/assignments", (req, res) => 
+app.get("/listassignments", (req, res) => 
     {
     const assignments = readJsonFile(ASSIGNMENTS_FILE);
 
@@ -60,8 +77,8 @@ app.get("/calendar", (req, res) =>
 
 app.post("/assignments", (req, res) => 
     {
-    const { title, dueDate, points, submissions, instructions } = req.body;
-
+    const {subject, title, dueDate, points, submissions, instructions } = req.body;
+    console.log(subject);
     if (!title || !dueDate) 
         {
         return res.status(400).json({ error: "Title and due date are required." });
@@ -77,7 +94,7 @@ app.post("/assignments", (req, res) =>
         return res.status(400).json({ error: "This date already has 2 assignments. Choose another date." });
     }
 
-    assignments.push({ title, dueDate, points, submissions, instructions });
+    assignments.push({ subject,title, dueDate, points, submissions, instructions });
     writeJsonFile(ASSIGNMENTS_FILE, assignments);
 
     if (!calendar[dueDate])
@@ -93,6 +110,8 @@ app.post("/assignments", (req, res) =>
 
     res.json({ message: "Assignment added successfully!" });
 });
+
+
 
 
 

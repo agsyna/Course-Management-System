@@ -1,4 +1,4 @@
-public import java.util.*;
+import java.util.*;
 
 class groupprojectsystem {
     private static class Student {

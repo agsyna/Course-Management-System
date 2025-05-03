@@ -4,24 +4,21 @@
     "dueDate": "2025-03-13",
     "points": "100",
     "submissions": 0,
-    "instructions": "REVIEW 1",
-    "submitted": true
+    "instructions": "REVIEW 1"
   },
   {
     "title": "REVIEW 2",
     "dueDate": "2025-03-13",
     "points": "40",
     "submissions": 0,
-    "instructions": "ASD",
-    "submitted": true
+    "instructions": "ASD"
   },
   {
     "title": "REVIEW 3",
     "dueDate": "2025-03-14",
     "points": "30",
     "submissions": 0,
-    "instructions": "",
-    "submitted": true
+    "instructions": ""
   },
   {
     "title": "MAD",
@@ -39,14 +36,6 @@
   },
   {
     "title": "End Term",
-    "dueDate": "2025-05-20",
-    "points": "100",
-    "submissions": 0,
-    "instructions": "",
-    "submitted": true
-  },
-  {
-    "title": "DBMS intro",
     "dueDate": "2025-05-20",
     "points": "100",
     "submissions": 0,

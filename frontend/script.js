@@ -103,10 +103,16 @@ function closeDialog()
   document.getElementById('successDialog').classList.add('hidden');
 }
 
+const onSubmit = (index) => {
+  console.log(index);
+  localStorage.setItem("assignmentId",index);
+  window.location.href = "/frontend/submit.html";
+}
+
 // fetch assignments
 function loadAssignments() 
 {
-  fetch("http://localhost:3000/assignments")
+  fetch("http://localhost:3000/listassignments")
     .then(response => response.json())
     .then(assignments => {
       let table = document.getElementById('assignmentsTable'); 
@@ -118,7 +124,9 @@ function loadAssignments()
           <td>${index + 1}</td>
           <td>${assignment.title}</td>
           <td>${assignment.points}</td>
+          <td>${Math.random()<0.5?"Yes":"No"}</td>
           <td>${assignment.dueDate}</td>
+          <td>${assignment.submitted?"Submitted":`<button onclick=onSubmit(${index})>+</button>`}</td>
         `;
         table.appendChild(row);
       });
@@ -129,12 +137,12 @@ function loadAssignments()
 // Submit assignment
 function handleSubmit(event) {
   event.preventDefault();
-
+  let subjectVal = document.getElementById("subject");
+  console.log(subjectVal.value);
   const newAssignment = {
+    subject: "Database System",
     title: document.querySelector('input[type="text"]').value,
     instructions: document.querySelector('textarea').value,
-
-
     dueDate: document.querySelector('input[type="date"]').value,
     points: document.querySelector('input[type="number"]').value,
     submissions: 0
@@ -168,7 +176,30 @@ window.addEventListener('message', function(event)
 });
 
 // Load assignments 
-window.onload = loadAssignments;
+window.onload = ()=>{
+  let button = document.getElementById("submit");
+  let form =  document.getElementById("assignment-form");
+  if(form){
+    form.addEventListener("submit",(e)=>{
+      console.log("Submit button clicked");
+      e.preventDefault();
+    })
+  }
+  if(button){
+    button.addEventListener("click",()=>{
+      console.log("HI");
+      let id = localStorage.getItem("assignmentId")
+      fetch(`http://localhost:3000/submitassignment/${id}`)
+      location.href = "/frontend/listassignments.html";
+    })
+  }
+  // localStorage.getItem("assignmentId") contains assignment Id 
+  // create a get route that returns assignment[assignmentId] after reading json
+  // display information in input fields (eg :)
+  // let nameInput = document.getElementById("nameinput");
+  // nameInput.value = data.title;
+  loadAssignments();
+};
 
 document.addEventListener("DOMContentLoaded", () => 
   {

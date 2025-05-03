@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMU Course Management</title>
+    <link rel="stylesheet" href="submit.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="mainwrapper">
+
+        <aside class="leftsidebar">
+            <div class="toplogo">
+                <img src="assets/BMU_logo.png" alt="Logo" class="w-34 h-16" style="border-radius: 1;" />
+            </div>
+            <nav class="navlinks">
+                <a href="index.html" class="navitem">Dashboard</a>
+                <a href="#" class="navitem">Courses</a>
+                <a href="assignmentcreate.html" class="navitem">Assignments</a>
+                <a href="#" class="navitem">Attendance</a>
+                <a href="#" class="navitem active">Schedule</a>
+                <a href="#" class="navitem">Connect</a>
+                <a href="#" class="navitem">Settings</a>
+                <a href="login.html" class="navitem">Sign Out</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <div class="header-title">
+                    <h1>SUBMIT ASSIGNMENT</h1>
+                    <!-- <span class="subtitle">List</span> -->
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-bell notification-icon"></i>
+                    <div class="profile-section">
+                        <img src="assets/BMU_bg.png" alt="Profile" class="profile-pic">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+            <div class="submit-assignment-container">
+                <div id="assignment-form" class="assignment-form">
+                  <!-- <h2>SUBMIT ASSIGNMENT</h2> -->
+              
+                  <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" />
+                  </div>
+              
+                  <div class="form-group">
+                    <label>Type</label>
+                    <select>
+                      <option>Group</option>
+                      <option>Individual</option>
+                    </select>
+                  </div>
+              
+                  <div class="form-group">
+                    <label>Title</label>
+                    <input id="titleInput" type="text" placeholder="Project Report" />
+                  </div>
+              
+                  <div class="form-group">
+                    <label>Enrollment numbers</label>
+                    <input type="text" placeholder="230791 ; ........." />
+                  </div>
+              
+                  <div class="form-group">
+                    <label>Comments.. (optional)</label>
+                    <input type="text" placeholder="Your comments here..." />
+                  </div>
+              
+                  <div class="bottom-row">
+                    <div class="due-points">
+                      <label>Due -</label>
+                      <div class="due-box">
+                        <input type="date" />
+                      </div>
+              
+                      <label>Points -</label>
+                      <div class="points-box">
+                        <input type="number" placeholder="100" />
+                        <span>★</span>
+                      </div>
+                    </div>
+              
+                    <button id="submit" type="button" class="submit-button">
+                      SUBMIT <span class="arrow">➤</span>
+                    </button>
+                  </div>
+                </div>
+              
+                <div class="attachment-panel">
+                  <h4>Attachment</h4>
+                  <ul>
+                    <li><i>🔗</i> Link</li>
+                    <li><i>📤</i> Upload</li>
+                    <li><i>📝</i> Create</li>
+                    <li><i>▶️</i> Youtube</li>
+                    <li><i>📁</i> Drive</li>
+                  </ul>
+                </div>
+              </div>
+
+              
+              
+
+            <!-- <div class="assignments-container">
+                <table class="assignments-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                            <th>Group</th>
+                            <th>Deadline</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assignmentsList">
+                        
+                    </tbody>
+                </table>
+            </div> -->
+        </main>
+    </div>
+
+    <!-- Assignment Submission Modal -->
+    <div id="submissionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Submit Assignment</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="assignmentSubmissionForm" onsubmit="(e)=>{e.preventDefault()}">
+                <div class="form-group">
+                    <label for="assignmentType">Assignment Type</label>
+                    <select id="assignmentType" required>
+                        <option value="">Select Type</option>
+                        <option value="individual">Individual</option>
+                        <option value="group">Group</option>
+                    </select>
+                </div>
+
+                <div id="groupMembersSection" class="form-group hidden">
+                    <label>Group Members (Enrollment Numbers)</label>
+                    <div id="enrollmentInputs">
+                        <input type="text" pattern="[0-9]{6}" maxlength="6" placeholder="Enter 6-digit enrollment number" required>
+                    </div>
+                    <button type="button" id="addMemberBtn" class="secondary-btn">
+                        <i class="fas fa-plus"></i> Add Member
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="assignmentFile">Upload File</label>
+                    <div class="file-upload">
+                        <input type="file" id="assignmentFile" required>
+                        <label for="assignmentFile" class="file-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose a file or drag it here</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="button" class="submit-btn">Submit Assignment</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

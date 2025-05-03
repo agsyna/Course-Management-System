@@ -1,0 +1,68 @@
+{
+    "assignments": [
+        {
+            "id": "01",
+            "name": "DBMS Lab Assignment",
+            "points": 60,
+            "group": "N/A",
+            "deadline": "TODAY",
+            "status": "Uploaded"
+        },
+        {
+            "id": "02",
+            "name": "Operating System",
+            "points": 80,
+            "group": "N/A",
+            "deadline": "TODAY",
+            "status": "Uploaded"
+        },
+        {
+            "id": "03",
+            "name": "Machine Learning",
+            "points": 100,
+            "group": "Yes",
+            "deadline": "27th Feb '24",
+            "status": "Uploaded"
+        },
+        {
+            "id": "04",
+            "name": "Project -2 Report",
+            "points": 60,
+            "group": "N/A",
+            "deadline": "1st March '24",
+            "status": "Pending"
+        },
+        {
+            "id": "05",
+            "name": "DBMS Lab Assignment",
+            "points": 60,
+            "group": "N/A",
+            "deadline": "2nd March '24",
+            "status": "Pending"
+        },
+        {
+            "id": "06",
+            "name": "CGA Lab Assignment",
+            "points": 80,
+            "group": "N/A",
+            "deadline": "28th Feb '24",
+            "status": "Pending"
+        },
+        {
+            "id": "07",
+            "name": "FDL Assignment",
+            "points": 100,
+            "group": "Yes",
+            "deadline": "28th Feb '24",
+            "status": "Pending"
+        },
+        {
+            "id": "08",
+            "name": "Feedback M.L.",
+            "points": 60,
+            "group": "N/A",
+            "deadline": "7th March '24",
+            "status": "Pending"
+        }
+    ]
+} 
