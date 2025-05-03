@@ -2,17 +2,22 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
 
 const ASSIGNMENTS_FILE = "../data/assignments.json";
 const CALENDAR_FILE = "../data/calendar.json";
+const USERS_FILE = "../data/users.json";
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// Read from JSON file
+// Serve static files
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Helper function to read JSON files
 function readJsonFile(filePath) {
     try {
         const data = fs.readFileSync(filePath, "utf8");
@@ -23,7 +28,7 @@ function readJsonFile(filePath) {
     }
 }
 
-// Write to JSON file
+// Helper function to write JSON files
 function writeJsonFile(filePath, data) {
     try {
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
@@ -32,6 +37,60 @@ function writeJsonFile(filePath, data) {
         console.error("Error writing to JSON file:", error);
     }
 }
+
+// Login endpoint
+app.post("/api/login", (req, res) => {
+    const { username, password } = req.body;
+    const users = readJsonFile(USERS_FILE).users;
+    const user = users.find(u => u.username === username && u.password === password);
+    
+    if (user) {
+        res.json({ success: true, user });
+    } else {
+        res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+});
+
+// Routes for attendance data
+app.get('/api/attendance/:section', (req, res) => {
+    const section = req.params.section;
+    const filePath = path.join(__dirname, '../data/attendance', `${section}.json`);
+    
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            res.status(404).json({ error: 'Attendance data not found' });
+            return;
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+// Routes for marks data
+app.get('/api/marks/:section', (req, res) => {
+    const section = req.params.section;
+    const filePath = path.join(__dirname, '../data/marks', `${section}.json`);
+    
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            res.status(404).json({ error: 'Marks data not found' });
+            return;
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+// Route for courses data
+app.get('/api/courses', (req, res) => {
+    const filePath = path.join(__dirname, '../data/courses.json');
+    
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            res.status(404).json({ error: 'Courses data not found' });
+            return;
+        }
+        res.json(JSON.parse(data));
+    });
+});
 
 // Get all assignments
 app.get("/assignments", (req, res) => {
@@ -69,7 +128,6 @@ app.post("/assignments", (req, res) => {
     writeJsonFile(CALENDAR_FILE, calendar);
 
     res.json({ message: "Assignment added successfully!" });
-
 });
 
 // Delete assignment

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal - Attendance</title>
+  <link rel="stylesheet" href="css/attendance.css">
+</head>
+<body>
+  <div class="mainwrapper">
+    <aside class="leftsidebar">
+        <div class="toplogo">
+          <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" />
+        </div>
+        <nav class="navlinks">
+          <a href="student.html" class="navitem">Dashboard</a>
+          <a href="#" class="navitem">Courses</a>
+          <a href="listassignments.html" class="navitem">Assignments</a>
+          <a href="#" class="navitem active">Attendance</a>
+          <a href="marks.html" class="navitem">Marks</a>
+          <a href="calendar.html" class="navitem">Schedule</a>
+          <a href="#" class="navitem">Connect</a>
+          <a href="#" class="navitem">Settings</a>
+          <a href="login.html" class="navitem">Sign Out</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h1 id="currentPage">Attendance</h1>
+          <span>List</span>
+        </div>
+      </header>
+
+      <div class="attendance-container">
+        <div class="attendance-header-row">
+            <div>Code</div>
+            <div>Course Name</div>
+            <div>Attendance Count</div>
+            <div>Percentage</div>
+            <div>% After Capping</div>
+        </div>
+        <div class="attendance-list" id="attendanceList">
+            <!-- Attendance data will be populated here -->
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Fetch attendance data
+    async function fetchAttendanceData() {
+      try {
+        const response = await fetch('http://localhost:3000/api/attendance/CSE6');
+        const data = await response.json();
+        populateAttendanceList(data.attendance);
+      } catch (error) {
+        console.error('Error fetching attendance data:', error);
+      }
+    }
+
+    function populateAttendanceList(attendanceData) {
+      const attendanceList = document.getElementById('attendanceList');
+      attendanceList.innerHTML = '';
+
+      attendanceData.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'attendance-row';
+        row.innerHTML = `
+          <div>${item.code}</div>
+          <div class="blue">${item.courseName}</div>
+          <div>${item.attendanceCount}</div>
+          <div>${item.percentage}</div>
+          <div class="yellow">${item.afterCapping}</div>
+        `;
+        attendanceList.appendChild(row);
+      });
+    }
+
+    // Fetch data when page loads
+    document.addEventListener('DOMContentLoaded', fetchAttendanceData);
+  </script>
+</body>
+</html>

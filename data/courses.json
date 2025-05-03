@@ -1,0 +1,46 @@
+{
+  "courses": [
+    {
+      "name": "Database Management",
+      "courseId": "CSE2020",
+      "sessions": 35,
+      "credits": 2,
+      "status": "SELECTED"
+    },
+    {
+      "name": "Operating System",
+      "courseId": "CSE2016",
+      "sessions": 50,
+      "credits": 3,
+      "status": "SELECTED"
+    },
+    {
+      "name": "Software Engineering",
+      "courseId": "CSE1798",
+      "sessions": 60,
+      "credits": 4,
+      "status": "SELECTED"
+    },
+    {
+      "name": "Project - 2",
+      "courseId": "CSE1324",
+      "sessions": 60,
+      "credits": 4,
+      "status": "SELECTED"
+    },
+    {
+      "name": "Practice School - 2",
+      "courseId": "CSE1567",
+      "sessions": 20,
+      "credits": 1,
+      "status": "SELECTED"
+    },
+    {
+      "name": "Machine Learning",
+      "courseId": "CSE7823",
+      "sessions": 60,
+      "credits": 4,
+      "status": "SELECTED"
+    }
+  ]
+} 
