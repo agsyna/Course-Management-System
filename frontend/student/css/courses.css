@@ -205,3 +205,26 @@ body {
     cursor: pointer;
   }
   
+.action-btn {
+  background: #38A169;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+  background: #2F855A;
+}
+
+.action-btn[data-action="drop"] {
+  background: #E53E3E;
+}
+
+.action-btn[data-action="drop"]:hover {
+  background: #C53030;
+}
+  

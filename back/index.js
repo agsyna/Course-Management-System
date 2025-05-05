@@ -14,7 +14,7 @@ const CALENDAR_FILE = path.join(DATA_DIR, 'calendar.json');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const STUDENTS_FILE = path.join(DATA_DIR, 'students.json');
 const PROFESSORS_FILE = path.join(DATA_DIR, 'professors.json');
-const COURSES_FILE = path.join(DATA_DIR, 'allcourses.json');
+const COURSES_FILE = path.join(DATA_DIR, 'courses.json');
 const SCHEDULES_DIR = path.join(DATA_DIR, 'schedules');
 const FACULTY_DIR = path.join(DATA_DIR, 'faculty');
 
@@ -109,11 +109,16 @@ app.get('/api/marks/:section', (req, res) => {
 
 // Route for courses data
 app.get('/api/courses', (req, res) => {
-    const courses = readJsonFile(COURSES_FILE);
-    if (!Array.isArray(courses)) {
-        return res.status(500).json({ error: 'Invalid courses data format' });
+    try {
+        const courses = readJsonFile(COURSES_FILE);
+        if (!courses || !courses.courses) {
+            return res.status(500).json({ error: 'Invalid courses data format' });
+        }
+        res.json(courses);
+    } catch (error) {
+        console.error('Error reading courses file:', error);
+        res.status(500).json({ error: 'Failed to read courses data' });
     }
-    res.json(courses);
 });
 
 // Get single course by ID

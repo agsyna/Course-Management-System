@@ -61,17 +61,42 @@
     async function fetchCoursesData() {
       try {
         const response = await fetch('http://localhost:3000/api/courses');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
+        if (!data.courses) {
+          throw new Error('Invalid courses data format');
+        }
         populateCoursesTable(data.courses);
         setupSearch(data.courses);
       } catch (error) {
         console.error('Error fetching courses data:', error);
+        const tableBody = document.getElementById('coursesTableBody');
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; color: #E53E3E;">
+              Error loading courses. Please try again later.
+            </td>
+          </tr>
+        `;
       }
     }
 
     function populateCoursesTable(coursesData) {
       const tableBody = document.getElementById('coursesTableBody');
       tableBody.innerHTML = '';
+
+      if (!coursesData || coursesData.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center;">
+              No courses available.
+            </td>
+          </tr>
+        `;
+        return;
+      }
 
       coursesData.forEach(course => {
         const row = document.createElement('tr');
@@ -80,7 +105,11 @@
           <td>${course.courseId}</td>
           <td>${course.sessions}</td>
           <td>${course.credits}</td>
-          <td>${course.status}</td>
+          <td>
+            <button class="action-btn" data-action="${course.status === 'SELECTED' ? 'drop' : 'select'}" onclick="handleCourseAction('${course.courseId}')">
+              ${course.status === 'SELECTED' ? 'Drop' : 'Select'}
+            </button>
+          </td>
         `;
         tableBody.appendChild(row);
       });
@@ -96,6 +125,30 @@
         );
         populateCoursesTable(filteredCourses);
       });
+    }
+
+    function handleCourseAction(courseId) {
+      const button = event.target;
+      const currentAction = button.textContent.trim();
+      const newAction = currentAction === 'Select' ? 'Drop' : 'Select';
+      
+      // Update button appearance
+      button.textContent = newAction;
+      button.setAttribute('data-action', newAction.toLowerCase());
+      
+      // Show feedback
+      const feedback = document.createElement('div');
+      feedback.style.position = 'fixed';
+      feedback.style.top = '20px';
+      feedback.style.right = '20px';
+      feedback.style.padding = '10px 20px';
+      feedback.style.borderRadius = '4px';
+      feedback.style.color = 'white';
+      feedback.style.backgroundColor = newAction === 'Select' ? '#38A169' : '#E53E3E';
+      feedback.textContent = `Course ${newAction.toLowerCase()}ed successfully`;
+      
+      document.body.appendChild(feedback);
+      setTimeout(() => feedback.remove(), 3000);
     }
 
     // Fetch data when page loads

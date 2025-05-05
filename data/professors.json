@@ -82,11 +82,11 @@
     "courses": []
   },
   {
-    "id": "BMUF006",
+    "id": "BMUF007",
     "firstName": "Shiv",
     "lastName": "Kumar",
     "email": "shiv@bmu.edu.in",
-    "department": "Electrical Engineering",
+    "department": "Computer Science",
     "position": "Associate Professor",
     "specialization": "wab",
     "courses": []
