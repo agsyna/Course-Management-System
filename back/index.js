@@ -263,11 +263,26 @@ app.post('/api/faculty/schedule', (req, res) => {
         return res.status(400).json({ message: "Section and schedule data are required." });
     }
 
+    // Ensure the faculty directory exists
+    if (!fs.existsSync(FACULTY_DIR)) {
+        fs.mkdirSync(FACULTY_DIR, { recursive: true });
+    }
+
     const scheduleFile = path.join(FACULTY_DIR, `${section}_schedule.json`);
 
     try {
-        // Write the schedule to the respective file
-        writeJsonFile(scheduleFile, schedule);
+        // Read existing schedule if it exists
+        let existingSchedule = {};
+        if (fs.existsSync(scheduleFile)) {
+            const fileContent = fs.readFileSync(scheduleFile, 'utf8');
+            existingSchedule = JSON.parse(fileContent);
+        }
+
+        // Merge new schedule with existing schedule
+        const updatedSchedule = { ...existingSchedule, ...schedule };
+
+        // Write the updated schedule to the file
+        fs.writeFileSync(scheduleFile, JSON.stringify(updatedSchedule, null, 2));
         res.json({ message: "Schedule created successfully!" });
     } catch (error) {
         console.error("Error writing schedule:", error);

@@ -256,3 +256,20 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchCourses();
     fetchSchedule();
 });
+
+// Signout function
+function signOut() {
+    sessionStorage.removeItem('userData');
+    window.location.href = '../login.html';
+}
+
+// Add event listener to signout link
+document.addEventListener('DOMContentLoaded', () => {
+    const signOutLink = document.querySelector('a[href="../login.html"]');
+    if (signOutLink) {
+        signOutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut();
+        });
+    }
+});
