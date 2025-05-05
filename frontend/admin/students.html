@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students Management - Admin Panel</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/students.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="mainwrapper">
+
+    <aside class="leftsidebar">
+      <div class="toplogo">
+        <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+      </div>
+
+      <nav class="navlinks">
+        <a href="index.html" class="navitem ">
+          Dashboard
+        </a>
+        <a href="courses.html" class="navitem">Courses</a>
+        <a href="students.html" class="navitem">Students</a>
+        <a href="professors.html" class="navitem">Professors</a>
+        <a href="#" class="navitem">Attendance</a>
+        <a href="#" class="navitem">Schedule</a>
+        <a href="#" class="navitem">Settings</a>
+        <a href="../login.html" class="navitem">Sign Out</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="content-header">
+        <h1>Students Management</h1>
+        <div class="user-menu">
+          <span class="user-name">Admin</span>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="filters">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search students...">
+          </div>
+          <div class="filter-box">
+            <select id="filterSelect">
+              <option value="">All Programs</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Biology">Biology</option>
+              <option value="English Literature">English Literature</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="addStudent()">
+            <i class="fas fa-plus"></i> Add Student
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Program</th>
+                <th>Year</th>
+                <th>GPA</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Student Modal -->
+  <div id="addStudentModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Student</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="addStudentForm">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="program">Program</label>
+            <select id="program" name="program" required>
+              <option value="">Select Program</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Biology">Biology</option>
+              <option value="English Literature">English Literature</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="year">Year</label>
+            <select id="year" name="year" required>
+              <option value="">Select Year</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="gpa">GPA</label>
+            <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Student</button>
+            <button type="button" class="btn btn-outline" onclick="closeModal('addStudentModal')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

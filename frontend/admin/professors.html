@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professors Management - Admin Panel</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/professors.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="mainwrapper">
+
+    <aside class="leftsidebar">
+      <div class="toplogo">
+        <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+      </div>
+
+      <nav class="navlinks">
+        <a href="index.html" class="navitem ">
+          Dashboard
+        </a>
+        <a href="courses.html" class="navitem">Courses</a>
+        <a href="students.html" class="navitem">Students</a>
+        <a href="professors.html" class="navitem">Professors</a>
+        <a href="#" class="navitem">Attendance</a>
+        <a href="#" class="navitem">Schedule</a>
+        <a href="#" class="navitem">Settings</a>
+        <a href="../login.html" class="navitem">Sign Out</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="content-header">
+        <h1>Professors Management</h1>
+        <div class="user-menu">
+          <span class="user-name">Admin</span>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="filters">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search professors...">
+          </div>
+          <div class="filter-box">
+            <select id="filterSelect">
+              <option value="">All Departments</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Biology">Biology</option>
+              <option value="English">English</option>
+              <option value="Physics">Physics</option>
+              <option value="History">History</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="addProfessor()">
+            <i class="fas fa-plus"></i> Add Professor
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Position</th>
+                <th>Specialization</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Professor Modal -->
+  <div id="addProfessorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Professor</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="addProfessorForm">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <select id="department" name="department" required>
+              <option value="">Select Department</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Biology">Biology</option>
+              <option value="English">English</option>
+              <option value="Physics">Physics</option>
+              <option value="History">History</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="position">Position</label>
+            <select id="position" name="position" required>
+              <option value="">Select Position</option>
+              <option value="Professor">Professor</option>
+              <option value="Associate Professor">Associate Professor</option>
+              <option value="Assistant Professor">Assistant Professor</option>
+              <option value="Lecturer">Lecturer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="specialization">Specialization</label>
+            <input type="text" id="specialization" name="specialization" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Professor</button>
+            <button type="button" class="btn btn-outline" onclick="closeModal('addProfessorModal')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

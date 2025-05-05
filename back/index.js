@@ -7,11 +7,16 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-const ASSIGNMENTS_FILE = "../data/assignments.json";
-const CALENDAR_FILE = "../data/calendar.json";
-const USERS_FILE = "../data/users.json";
-const SCHEDULES_DIR = path.join(__dirname, '../data/schedules');
-const FACULTY_DIR = path.join(__dirname, '../data/faculty');
+// Define absolute paths for data files
+const DATA_DIR = path.join(__dirname, '../data');
+const ASSIGNMENTS_FILE = path.join(DATA_DIR, 'assignments.json');
+const CALENDAR_FILE = path.join(DATA_DIR, 'calendar.json');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
+const STUDENTS_FILE = path.join(DATA_DIR, 'students.json');
+const PROFESSORS_FILE = path.join(DATA_DIR, 'professors.json');
+const COURSES_FILE = path.join(DATA_DIR, 'allcourses.json');
+const SCHEDULES_DIR = path.join(DATA_DIR, 'schedules');
+const FACULTY_DIR = path.join(DATA_DIR, 'faculty');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -22,10 +27,23 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 // Helper function to read JSON files
 function readJsonFile(filePath) {
     try {
+        if (!fs.existsSync(filePath)) {
+            console.error(`File not found: ${filePath}`);
+            return filePath === CALENDAR_FILE ? {} : [];
+        }
         const data = fs.readFileSync(filePath, "utf8");
-        return data ? JSON.parse(data) : (filePath === CALENDAR_FILE ? {} : []);
+        if (!data) {
+            console.error(`Empty file: ${filePath}`);
+            return filePath === CALENDAR_FILE ? {} : [];
+        }
+        const parsed = JSON.parse(data);
+        if (filePath !== CALENDAR_FILE && !Array.isArray(parsed)) {
+            console.error(`Invalid data format in ${filePath}: expected an array`);
+            return [];
+        }
+        return parsed;
     } catch (error) {
-        console.error("Error reading JSON file:", error);
+        console.error(`Error reading JSON file ${filePath}:`, error);
         return filePath === CALENDAR_FILE ? {} : [];
     }
 }
@@ -35,8 +53,10 @@ function writeJsonFile(filePath, data) {
     try {
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
         console.log("WRITE PERFORMED on", filePath);
+        return true;
     } catch (error) {
         console.error("Error writing to JSON file:", error);
+        return false;
     }
 }
 
@@ -83,15 +103,11 @@ app.get('/api/marks/:section', (req, res) => {
 
 // Route for courses data
 app.get('/api/courses', (req, res) => {
-    const filePath = path.join(__dirname, '../data/courses.json');
-    
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            res.status(404).json({ error: 'Courses data not found' });
-            return;
-        }
-        res.json(JSON.parse(data));
-    });
+    const courses = readJsonFile(COURSES_FILE);
+    if (!Array.isArray(courses)) {
+        return res.status(500).json({ error: 'Invalid courses data format' });
+    }
+    res.json(courses);
 });
 
 // Get all assignments
@@ -232,6 +248,137 @@ app.post('/api/faculty/schedule', (req, res) => {
     } catch (error) {
         console.error("Error writing schedule:", error);
         res.status(500).json({ message: "Failed to create schedule." });
+    }
+});
+
+// Students CRUD Operations
+app.get("/api/students", (req, res) => {
+    const students = readJsonFile(STUDENTS_FILE);
+    res.json(students);
+});
+
+app.post("/api/students", (req, res) => {
+    const students = readJsonFile(STUDENTS_FILE);
+    const newStudent = {
+        id: `BMU${1000 + students.length + 1}`,
+        ...req.body,
+        status: "Active"
+    };
+    students.push(newStudent);
+    if (writeJsonFile(STUDENTS_FILE, students)) {
+        res.json({ success: true, student: newStudent });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to add student" });
+    }
+});
+
+app.put("/api/students/:id", (req, res) => {
+    const students = readJsonFile(STUDENTS_FILE);
+    const index = students.findIndex(s => s.id === req.params.id);
+    if (index === -1) {
+        return res.status(404).json({ success: false, message: "Student not found" });
+    }
+    students[index] = { ...students[index], ...req.body };
+    if (writeJsonFile(STUDENTS_FILE, students)) {
+        res.json({ success: true, student: students[index] });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to update student" });
+    }
+});
+
+app.delete("/api/students/:id", (req, res) => {
+    const students = readJsonFile(STUDENTS_FILE);
+    const filteredStudents = students.filter(s => s.id !== req.params.id);
+    if (writeJsonFile(STUDENTS_FILE, filteredStudents)) {
+        res.json({ success: true, message: "Student deleted successfully" });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to delete student" });
+    }
+});
+
+// Professors CRUD Operations
+app.get("/api/professors", (req, res) => {
+    const professors = readJsonFile(PROFESSORS_FILE);
+    res.json(professors);
+});
+
+app.post("/api/professors", (req, res) => {
+    const professors = readJsonFile(PROFESSORS_FILE);
+    const newProfessor = {
+        id: `BMUF${String(professors.length + 1).padStart(3, '0')}`,
+        ...req.body,
+        courses: []
+    };
+    professors.push(newProfessor);
+    if (writeJsonFile(PROFESSORS_FILE, professors)) {
+        res.json({ success: true, professor: newProfessor });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to add professor" });
+    }
+});
+
+app.put("/api/professors/:id", (req, res) => {
+    const professors = readJsonFile(PROFESSORS_FILE);
+    const index = professors.findIndex(p => p.id === req.params.id);
+    if (index === -1) {
+        return res.status(404).json({ success: false, message: "Professor not found" });
+    }
+    professors[index] = { ...professors[index], ...req.body };
+    if (writeJsonFile(PROFESSORS_FILE, professors)) {
+        res.json({ success: true, professor: professors[index] });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to update professor" });
+    }
+});
+
+app.delete("/api/professors/:id", (req, res) => {
+    const professors = readJsonFile(PROFESSORS_FILE);
+    const filteredProfessors = professors.filter(p => p.id !== req.params.id);
+    if (writeJsonFile(PROFESSORS_FILE, filteredProfessors)) {
+        res.json({ success: true, message: "Professor deleted successfully" });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to delete professor" });
+    }
+});
+
+// Courses CRUD Operations
+app.post("/api/courses", (req, res) => {
+    const courses = readJsonFile(COURSES_FILE);
+    const newCourse = {
+        id: `CS${String(courses.length + 1).padStart(3, '0')}`,
+        ...req.body,
+        currentEnrollment: 0,
+        status: "Active"
+    };
+    courses.push(newCourse);
+    if (writeJsonFile(COURSES_FILE, courses)) {
+        res.json({ success: true, course: newCourse });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to add course" });
+    }
+});
+
+app.put("/api/courses/:id", (req, res) => {
+    const courses = readJsonFile(COURSES_FILE);
+    const index = courses.findIndex(c => c.id === req.params.id);
+    if (index === -1) {
+        return res.status(404).json({ success: false, message: "Course not found" });
+    }
+    courses[index] = { ...courses[index], ...req.body };
+    if (writeJsonFile(COURSES_FILE, courses)) {
+        res.json({ success: true, course: courses[index] });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to update course" });
+    }
+});
+
+app.delete("/api/courses/:id", (req, res) => {
+    const courses = readJsonFile(COURSES_FILE);
+    const filteredCourses = courses.filter(c => c.id !== req.params.id);
+    if (writeJsonFile(COURSES_FILE, filteredCourses)) {
+        res.json({ success: true, message: "Course deleted successfully" });
+    } else {
+        res.status(500).json({ success: false, message: "Failed to delete course" });
     }
 });
 

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "BMU1001",
+    "firstName": "Kartik",
+    "lastName": "Mehtani",
+    "email": "kartik.mehtani.23cse@bmu.edu.in",
+    "phone": "+91-9876543210",
+    "enrollmentDate": "2023-08-01",
+    "dateOfBirth": "2004-04-10",
+    "address": "Hostel Block A, BML Munjal University, Gurugram, Haryana 122413",
+    "gender": "Male",
+    "program": "Computer Science and Engineering",
+    "year": 2,
+    "gpa": 3.7,
+    "status": "Active",
+    "courses": [
+      "CSE101",
+      "MAT201",
+      "ENG102"
+    ]
+  },
+  {
+    "id": "BMU1002",
+    "firstName": "Rumjhum",
+    "lastName": "Garg",
+    "email": "rumjhum.das.23cse@bmu.edu.in",
+    "phone": "+91-9812345678",
+    "enrollmentDate": "2023-08-01",
+    "dateOfBirth": "2004-06-21",
+    "address": "Hostel Block B, BML Munjal University, Gurugram, Haryana 122413",
+    "gender": "Female",
+    "program": "Computer Science and Engineering",
+    "year": 2,
+    "gpa": 3.9,
+    "status": "Active",
+    "courses": [
+      "CSE101",
+      "MAT201",
+      "PHY105"
+    ]
+  },
+  {
+    "id": "BMU1004",
+    "firstName": "Saanvi",
+    "lastName": "Sharma",
+    "email": "saanvi.sharma.22eng@bmu.edu.in",
+    "phone": "+91-9988776655",
+    "enrollmentDate": "2022-08-01",
+    "dateOfBirth": "2003-11-11",
+    "address": "Hostel Block D, BML Munjal University, Gurugram, Haryana 122413",
+    "gender": "Female",
+    "program": "English Literature",
+    "year": 3,
+    "gpa": 3.8,
+    "status": "Active",
+    "courses": [
+      "ENG102",
+      "HIS101",
+      "PHL202"
+    ]
+  },
+  {
+    "id": "BMU1005",
+    "firstName": "Rohan",
+    "lastName": "Kapoor",
+    "email": "rohan.kapoor.21cse@bmu.edu.in",
+    "phone": "+91-9900112233",
+    "enrollmentDate": "2021-08-01",
+    "dateOfBirth": "2002-07-05",
+    "address": "Hostel Block E, BML Munjal University, Gurugram, Haryana 122413",
+    "gender": "Male",
+    "program": "Computer Science and Engineering",
+    "year": 4,
+    "gpa": 3.5,
+    "status": "Active",
+    "courses": [
+      "CSE101",
+      "CSE301",
+      "CSE401"
+    ]
+  }
+]

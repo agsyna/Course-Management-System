@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | BMU</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+
+  <div class="mainwrapper">
+
+    <aside class="leftsidebar">
+      <div class="toplogo">
+        <img src="../assets/BMU_logo.png" alt="Logo" class="w-34 h-16 rounded-full" style="border-radius: 1; " />
+      </div>
+
+      <nav class="navlinks">
+        <a href="index.html" class="navitem ">
+          Dashboard
+        </a>
+        <a href="courses.html" class="navitem">Courses</a>
+        <a href="students.html" class="navitem">Students</a>
+        <a href="professors.html" class="navitem">Professors</a>
+        <a href="#" class="navitem">Attendance</a>
+        <a href="#" class="navitem">Schedule</a>
+        <a href="#" class="navitem">Settings</a>
+        <a href="../login.html" class="navitem">Sign Out</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="page-header">
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <h1>Dashboard</h1>
+        <div class="user-menu">
+          <div class="user-avatar">
+            <span>A</span>
+          </div>
+          <span class="user-name">Admin User</span>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+          <div class="stats-card">
+            <div class="stats-icon students">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="stats-info">
+              <h3>Total Students</h3>
+              <p class="stats-value">0</p>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-icon professors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div class="stats-info">
+              <h3>Total Professors</h3>
+              <p class="stats-value">0</p>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-icon courses">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <div class="stats-info">
+              <h3>Active Courses</h3>
+              <p class="stats-value">0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2>Performance Overview</h2>
+              <div class="card-actions">
+                <select class="time-filter">
+                  <option value="week">This Week</option>
+                  <option value="month" selected>This Month</option>
+                  <option value="year">This Year</option>
+                </select>
+                <button class="refresh-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 2v6h-6"></path>
+                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+                    <path d="M3 22v-6h6"></path>
+                    <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="performanceChart"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2>Enrollment Statistics</h2>
+              <div class="card-actions">
+                <select class="time-filter">
+                  <option value="current">Current Semester</option>
+                  <option value="previous">Previous Semester</option>
+                </select>
+                <button class="refresh-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 2v6h-6"></path>
+                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+                    <path d="M3 22v-6h6"></path>
+                    <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="enrollmentChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Recent Activity</h2>
+            <button class="refresh-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 2v6h-6"></path>
+                <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+                <path d="M3 22v-6h6"></path>
+                <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <ul class="activity-list">
+              <!-- Activity items will be dynamically added here -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

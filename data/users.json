@@ -19,6 +19,12 @@
       "name":"Gautam Gupta",
       "password": "gg1234",
       "role": "faculty"
+    },
+    {
+      "username":"admin@bmu.edu.in",
+      "name":"Admin",
+      "password":"admin1234",
+      "role":"admin"
     }
   ]
 }

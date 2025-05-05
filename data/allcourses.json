@@ -1,0 +1,147 @@
+[
+  {
+    "id": "CS201",
+    "title": "Operating Systems",
+    "department": "Computer Science",
+    "description": "Study of process management, memory management, file systems, and concurrency in modern operating systems.",
+    "credits": 4,
+    "schedule": "Tue, Thu 9:00 AM - 10:30 AM",
+    "location": "CS Building, Room 150",
+    "maxEnrollment": 30,
+    "currentEnrollment": 27,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS101"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  },
+  {
+    "id": "CS202",
+    "title": "Computer Networks",
+    "department": "Computer Science",
+    "description": "Introduction to data communication, networking models, protocols, and security concepts.",
+    "credits": 4,
+    "schedule": "Mon, Wed 10:30 AM - 12:00 PM",
+    "location": "CS Building, Room 160",
+    "maxEnrollment": 30,
+    "currentEnrollment": 26,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS201"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  },
+  {
+    "id": "CS203",
+    "title": "Database Management Systems",
+    "department": "Computer Science",
+    "description": "Covers relational databases, SQL, normalization, indexing, transactions, and database design.",
+    "credits": 4,
+    "schedule": "Tue, Thu 1:00 PM - 2:30 PM",
+    "location": "CS Building, Room 170",
+    "maxEnrollment": 30,
+    "currentEnrollment": 25,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS101"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  },
+  {
+    "id": "CS301",
+    "title": "Data Structures and Algorithms",
+    "department": "Computer Science",
+    "description": "Advanced course covering data structures like trees, graphs, hash tables and algorithms for searching, sorting, and graph traversal.",
+    "credits": 4,
+    "schedule": "Tue, Thu 10:30 AM - 12:30 PM",
+    "location": "CS Building, Room 201",
+    "maxEnrollment": 30,
+    "currentEnrollment": 28,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS101"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  },
+  {
+    "id": "CS302",
+    "title": "Software Engineering",
+    "department": "Computer Science",
+    "description": "Principles of software development, software life cycle models, project management, and testing techniques.",
+    "credits": 3,
+    "schedule": "Mon, Wed 1:00 PM - 2:30 PM",
+    "location": "CS Building, Room 220",
+    "maxEnrollment": 35,
+    "currentEnrollment": 30,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS203"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  },
+  {
+    "id": "CS303",
+    "title": "Compiler Design",
+    "department": "Computer Science",
+    "description": "Study of compiler phases including lexical analysis, syntax analysis, semantic analysis, optimization, and code generation.",
+    "credits": 3,
+    "schedule": "Tue, Thu 3:00 PM - 4:30 PM",
+    "location": "CS Building, Room 230",
+    "maxEnrollment": 30,
+    "currentEnrollment": 20,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS301"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  },
+  {
+    "id": "CS304",
+    "title": "Computer Organization and Architecture",
+    "department": "Computer Science",
+    "description": "Covers digital logic, instruction sets, CPU architecture, memory systems, and assembly programming.",
+    "credits": 4,
+    "schedule": "Mon, Wed 3:00 PM - 4:30 PM",
+    "location": "CS Building, Room 240",
+    "maxEnrollment": 30,
+    "currentEnrollment": 24,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS101"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  },
+  {
+    "id": "CS402",
+    "title": "Machine Learning",
+    "department": "Computer Science",
+    "description": "Study of supervised and unsupervised learning algorithms, regression, classification, clustering, and neural networks.",
+    "credits": 4,
+    "schedule": "Fri 10:00 AM - 1:00 PM",
+    "location": "CS Building, Room 310",
+    "maxEnrollment": 25,
+    "currentEnrollment": 18,
+    "professor": "PROF001",
+    "prerequisites": [
+      "CS401",
+      "MATH301"
+    ],
+    "startDate": "2025-01-15",
+    "endDate": "2025-05-15",
+    "status": "Active"
+  }
+]

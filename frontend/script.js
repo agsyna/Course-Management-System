@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Check if user is already logged in
+  const userData = sessionStorage.getItem('userData');
+  if (userData) {
+    const user = JSON.parse(userData);
+    if (user.role === 'admin') {
+      window.location.href = 'admin/index.html';
+    } else if (user.role === 'faculty') {
+      window.location.href = 'faculty/index.html';
+    } else if (user.role === 'student') {
+      window.location.href = 'student/student.html';
+    }
+  }
   loadAssignments();
   renderAttendanceChart();
 });
@@ -29,13 +41,15 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         window.location.href = 'student/student.html';
       } else if (data.user.role === 'faculty') {
         window.location.href = 'faculty/index.html';
+      } else if (data.user.role === 'admin') {
+        window.location.href = 'admin/index.html';
       }
     } else {
       alert('Invalid credentials');
     }
   } catch (error) {
     console.error('Login error:', error);
-    alert('An error occurred during login');
+    alert('An error occurred during login. Please try again.');
   }
 });
 
