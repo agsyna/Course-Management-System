@@ -42,6 +42,7 @@
   /* Student details modal */
   .student-details-modal {
     max-width: 800px;
+    align-items: center;
   }
   
   .student-details-header {

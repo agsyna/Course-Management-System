@@ -11,7 +11,7 @@
     "gender": "Male",
     "program": "Computer Science and Engineering",
     "year": 2,
-    "gpa": 3.7,
+    "gpa": 9.5,
     "status": "Active",
     "courses": [
       "CSE101",
@@ -31,7 +31,7 @@
     "gender": "Female",
     "program": "Computer Science and Engineering",
     "year": 2,
-    "gpa": 3.9,
+    "gpa": 8.8,
     "status": "Active",
     "courses": [
       "CSE101",
@@ -51,7 +51,7 @@
     "gender": "Female",
     "program": "English Literature",
     "year": 3,
-    "gpa": 3.8,
+    "gpa": 7.9,
     "status": "Active",
     "courses": [
       "ENG102",
@@ -71,12 +71,22 @@
     "gender": "Male",
     "program": "Computer Science and Engineering",
     "year": 4,
-    "gpa": 3.5,
+    "gpa": 5,
     "status": "Active",
     "courses": [
       "CSE101",
       "CSE301",
       "CSE401"
     ]
+  },
+  {
+    "id": "BMU1005",
+    "firstName": "Shiv",
+    "lastName": "Kumar",
+    "email": "shiv@bmu.edu.in",
+    "program": "Computer Science",
+    "year": 2,
+    "gpa": 6.9,
+    "status": "Active"
   }
 ]

@@ -143,5 +143,21 @@
     "startDate": "2025-01-15",
     "endDate": "2025-05-15",
     "status": "Active"
+  },
+  {
+    "id": "CS403",
+    "title": "Mobile Android Development",
+    "department": "Computer Science",
+    "description": "Mobile Android Development",
+    "credits": 3,
+    "schedule": "Tue 12:15 PM - 2:10 PM",
+    "location": "NB Building, Room 208",
+    "maxEnrollment": 23,
+    "currentEnrollment": 0,
+    "professor": "BMUF002",
+    "prerequisites": [],
+    "startDate": "2025-05-12",
+    "endDate": "2025-09-12",
+    "status": "Active"
   }
 ]

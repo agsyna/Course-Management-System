@@ -18,8 +18,10 @@ const COURSES_FILE = path.join(DATA_DIR, 'allcourses.json');
 const SCHEDULES_DIR = path.join(DATA_DIR, 'schedules');
 const FACULTY_DIR = path.join(DATA_DIR, 'faculty');
 
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '../frontend')));
@@ -37,10 +39,6 @@ function readJsonFile(filePath) {
             return filePath === CALENDAR_FILE ? {} : [];
         }
         const parsed = JSON.parse(data);
-        if (filePath !== CALENDAR_FILE && !Array.isArray(parsed)) {
-            console.error(`Invalid data format in ${filePath}: expected an array`);
-            return [];
-        }
         return parsed;
     } catch (error) {
         console.error(`Error reading JSON file ${filePath}:`, error);
@@ -51,11 +49,10 @@ function readJsonFile(filePath) {
 // Helper function to write JSON files
 function writeJsonFile(filePath, data) {
     try {
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-        console.log("WRITE PERFORMED on", filePath);
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
         return true;
     } catch (error) {
-        console.error("Error writing to JSON file:", error);
+        console.error(`Error writing JSON file ${filePath}:`, error);
         return false;
     }
 }
@@ -63,13 +60,22 @@ function writeJsonFile(filePath, data) {
 // Login endpoint
 app.post("/api/login", (req, res) => {
     const { username, password } = req.body;
-    const users = readJsonFile(USERS_FILE).users;
-    const user = users.find(u => u.username === username && u.password === password);
-    
-    if (user) {
-        res.json({ success: true, user });
-    } else {
-        res.status(401).json({ success: false, message: "Invalid credentials" });
+    try {
+        const data = readJsonFile(USERS_FILE);
+        if (!data || !data.users) {
+            console.error('Invalid users data structure');
+            return res.status(500).json({ success: false, message: "Server configuration error" });
+        }
+        const user = data.users.find(u => u.username === username && u.password === password);
+        
+        if (user) {
+            res.json({ success: true, user });
+        } else {
+            res.status(401).json({ success: false, message: "Invalid credentials" });
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ success: false, message: "Server error during login" });
     }
 });
 
@@ -108,6 +114,19 @@ app.get('/api/courses', (req, res) => {
         return res.status(500).json({ error: 'Invalid courses data format' });
     }
     res.json(courses);
+});
+
+// Get single course by ID
+app.get('/api/courses/:id', (req, res) => {
+    const courses = readJsonFile(COURSES_FILE);
+    if (!Array.isArray(courses)) {
+        return res.status(500).json({ error: 'Invalid courses data format' });
+    }
+    const course = courses.find(c => c.id === req.params.id);
+    if (!course) {
+        return res.status(404).json({ error: 'Course not found' });
+    }
+    res.json(course);
 });
 
 // Get all assignments
@@ -257,6 +276,16 @@ app.get("/api/students", (req, res) => {
     res.json(students);
 });
 
+// Get single student by ID
+app.get("/api/students/:id", (req, res) => {
+    const students = readJsonFile(STUDENTS_FILE);
+    const student = students.find(s => s.id === req.params.id);
+    if (!student) {
+        return res.status(404).json({ success: false, message: "Student not found" });
+    }
+    res.json(student);
+});
+
 app.post("/api/students", (req, res) => {
     const students = readJsonFile(STUDENTS_FILE);
     const newStudent = {
@@ -300,6 +329,16 @@ app.delete("/api/students/:id", (req, res) => {
 app.get("/api/professors", (req, res) => {
     const professors = readJsonFile(PROFESSORS_FILE);
     res.json(professors);
+});
+
+// Get single professor by ID
+app.get("/api/professors/:id", (req, res) => {
+    const professors = readJsonFile(PROFESSORS_FILE);
+    const professor = professors.find(p => p.id === req.params.id);
+    if (!professor) {
+        return res.status(404).json({ success: false, message: "Professor not found" });
+    }
+    res.json(professor);
 });
 
 app.post("/api/professors", (req, res) => {

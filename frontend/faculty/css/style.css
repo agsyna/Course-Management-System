@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=  Poppins:wght@400;500;600;700&display=swap');
 
 * {
-  margin: 0;
+  margin: 2;
   padding: 0;
   box-sizing: border-box;
 }
@@ -389,9 +389,9 @@ body {
   font-size: 0.875rem;
 }
 
-.datatable button:hover {
+/* .datatable button:hover {
   opacity: 0.9;
-}
+} */
 
 /* Assignment Table Action Buttons */
 .edit-btn, .delete-btn {

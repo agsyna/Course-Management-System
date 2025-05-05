@@ -1,25 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Check if user is already logged in
   const userData = sessionStorage.getItem('userData');
   if (userData) {
-    const user = JSON.parse(userData);
-    if (user.role === 'admin') {
-      window.location.href = 'admin/index.html';
-    } else if (user.role === 'faculty') {
-      window.location.href = 'faculty/index.html';
-    } else if (user.role === 'student') {
-      window.location.href = 'student/student.html';
+    try {
+      const user = JSON.parse(userData);
+      redirectToDashboard(user.role);
+    } catch (e) {
+      console.error("Invalid user data in sessionStorage:", e);
+      sessionStorage.removeItem('userData');
     }
   }
-  loadAssignments();
-  renderAttendanceChart();
+
+  if (typeof loadAssignments === 'function') loadAssignments();
+  if (typeof renderAttendanceChart === 'function') renderAttendanceChart();
 });
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  
-  const username = document.getElementById('username').value;
+
+  const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
+
+  if (!username || !password) {
+    alert("Please enter both username and password.");
+    return;
+  }
 
   try {
     const response = await fetch('http://localhost:3000/api/login', {
@@ -33,24 +37,25 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (data.success) {
-      // Store user data in session storage
       sessionStorage.setItem('userData', JSON.stringify(data.user));
-      
-      // Redirect based on role
-      if (data.user.role === 'student') {
-        window.location.href = 'student/student.html';
-      } else if (data.user.role === 'faculty') {
-        window.location.href = 'faculty/index.html';
-      } else if (data.user.role === 'admin') {
-        window.location.href = 'admin/index.html';
-      }
+      redirectToDashboard(data.user.role);
     } else {
-      alert('Invalid credentials');
+      alert(data.message || 'Invalid credentials');
     }
   } catch (error) {
     console.error('Login error:', error);
-    alert('An error occurred during login. Please try again.');
+    alert('An error occurred during login. Please try again later.');
   }
 });
 
-
+function redirectToDashboard(role) {
+  if (role === 'admin') {
+    window.location.href = 'admin/index.html';
+  } else if (role === 'faculty') {
+    window.location.href = 'faculty/index.html';
+  } else if (role === 'student') {
+    window.location.href = 'student/student.html';
+  } else {
+    alert("Unknown user role: " + role);
+  }
+}

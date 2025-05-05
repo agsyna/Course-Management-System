@@ -41,47 +41,126 @@
       </header>
 
       <div class="content-body">
-        <div class="filters">
-          <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search courses...">
+        <div class="content">
+          <div class="header">
+            <h1>Courses Management</h1>
+            <button class="btn btn-primary" onclick="addCourse()">
+              <i class="fas fa-plus"></i> Add Course
+            </button>
           </div>
-          <div class="filter-box">
-            <select id="filterSelect">
+          
+          <div class="filters">
+            <div class="search-box">
+              <input type="text" id="searchInput" placeholder="Search courses...">
+              <i class="fas fa-search"></i>
+            </div>
+            <select id="departmentFilter">
               <option value="">All Departments</option>
               <option value="Computer Science">Computer Science</option>
-              <option value="Mathematics">Mathematics</option>
-              <option value="Biology">Biology</option>
-              <option value="English">English</option>
-              <option value="Physics">Physics</option>
-              <option value="History">History</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Civil">Civil</option>
             </select>
           </div>
-          <button class="btn btn-primary" onclick="addCourse()">
-            <i class="fas fa-plus"></i> Add Course
-          </button>
-        </div>
 
-        <div class="table-container">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Course ID</th>
-                <th>Title</th>
-                <th>Department</th>
-                <th>Credits</th>
-                <th>Professor</th>
-                <th>Enrollment</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Data will be populated by JavaScript -->
-            </tbody>
-          </table>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Course ID</th>
+                  <th>Title</th>
+                  <th>Department</th>
+                  <th>Credits</th>
+                  <th>Professor</th>
+                  <th>Enrollment</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Course data will be loaded here -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </main>
+  </div>
+
+  <!-- Add/Edit Course Modal -->
+  <div class="modal" id="courseModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="courseModalTitle">Add New Course</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="courseForm">
+          <div class="form-group">
+            <label for="courseId">Course ID</label>
+            <input type="text" id="courseId" name="courseId" required>
+          </div>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+          </div>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <select id="department" name="department" required>
+              <option value="">Select Department</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Business Administration">Business Administration</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="credits">Credits</label>
+            <input type="number" id="credits" name="credits" min="1" max="6" required>
+          </div>
+          <div class="form-group">
+            <label for="schedule">Schedule</label>
+            <input type="text" id="schedule" name="schedule" required>
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" required>
+          </div>
+          <div class="form-group">
+            <label for="maxEnrollment">Maximum Enrollment</label>
+            <input type="number" id="maxEnrollment" name="maxEnrollment" min="1" required>
+          </div>
+          <div class="form-group">
+            <label for="professor">Professor</label>
+            <select id="professor" name="professor" required>
+              <option value="">Select Professor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="prerequisites">Prerequisites</label>
+            <input type="text" id="prerequisites" name="prerequisites">
+          </div>
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" name="startDate" required>
+          </div>
+          <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" name="endDate" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Course</button>
+            <button type="button" class="btn btn-outline" onclick="closeModal('courseModal')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <script src="js/admin.js"></script>

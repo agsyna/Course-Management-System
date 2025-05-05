@@ -11,7 +11,11 @@
     "specialization": "Artificial Intelligence",
     "office": "CSE Block, Room 305",
     "officeHours": "Mon, Wed 2:00 PM - 4:00 PM",
-    "courses": ["CSE301", "CSE409", "CSE412"]  
+    "courses": [
+      "CSE301",
+      "CSE409",
+      "CSE412"
+    ]
   },
   {
     "id": "BMUF002",
@@ -25,7 +29,11 @@
     "specialization": "Algorithms and Theory of Computation",
     "office": "Academic Block A, Room 204",
     "officeHours": "Tue, Thu 10:00 AM - 12:00 PM",
-    "courses": ["CSE201", "CSE303", "CSE403"]  
+    "courses": [
+      "CSE201",
+      "CSE303",
+      "CSE403"
+    ]
   },
   {
     "id": "BMUF003",
@@ -39,7 +47,11 @@
     "specialization": "Web Development & UI/UX",
     "office": "Academic Block B, Room 118",
     "officeHours": "Mon, Thu 11:00 AM - 1:00 PM",
-    "courses": ["CSE202", "CSE312", "CSE317"]  
+    "courses": [
+      "CSE202",
+      "CSE312",
+      "CSE317"
+    ]
   },
   {
     "id": "BMUF004",
@@ -53,6 +65,30 @@
     "specialization": "Software Engineering & Project Management",
     "office": "CSE Block, Room 312",
     "officeHours": "Tue, Thu 1:00 PM - 3:00 PM",
-    "courses": ["CSE208", "CSE306", "CSE402"]  
+    "courses": [
+      "CSE208",
+      "CSE306",
+      "CSE402"
+    ]
+  },
+  {
+    "id": "BMUF005",
+    "firstName": "saf",
+    "lastName": "dsg",
+    "email": "fgd@gmail.com",
+    "department": "Computer Science",
+    "position": "Assistant Professor",
+    "specialization": "wqr",
+    "courses": []
+  },
+  {
+    "id": "BMUF006",
+    "firstName": "Shiv",
+    "lastName": "Kumar",
+    "email": "shiv@bmu.edu.in",
+    "department": "Electrical Engineering",
+    "position": "Associate Professor",
+    "specialization": "wab",
+    "courses": []
   }
 ]

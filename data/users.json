@@ -9,22 +9,22 @@
     },
     {
       "username": "kartik.mehtani.23cse@bmu.edu.in",
-        "name":"Kartik Mehtani",
+      "name": "Kartik Mehtani",
       "password": "kartik1234",
       "role": "student",
       "section": "CSE6"
     },
     {
       "username": "gautam.gupta@bmu.edu.in",
-      "name":"Gautam Gupta",
+      "name": "Gautam Gupta",
       "password": "gg1234",
       "role": "faculty"
     },
     {
-      "username":"admin@bmu.edu.in",
-      "name":"Admin",
-      "password":"admin1234",
-      "role":"admin"
+      "username": "admin@bmu.edu.in",
+      "name": "Admin",
+      "password": "admin1234",
+      "role": "admin"
     }
   ]
 }

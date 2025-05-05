@@ -83,14 +83,14 @@
   </div>
 
   <!-- Add Professor Modal -->
-  <div id="addProfessorModal" class="modal">
+  <div class="modal" id="professorModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Add New Professor</h2>
+        <h2 id="professorModalTitle">Add New Professor</h2>
         <span class="close">&times;</span>
       </div>
       <div class="modal-body">
-        <form id="addProfessorForm">
+        <form id="professorForm">
           <div class="form-group">
             <label for="firstName">First Name</label>
             <input type="text" id="firstName" name="firstName" required>
@@ -108,11 +108,10 @@
             <select id="department" name="department" required>
               <option value="">Select Department</option>
               <option value="Computer Science">Computer Science</option>
-              <option value="Mathematics">Mathematics</option>
-              <option value="Biology">Biology</option>
-              <option value="English">English</option>
-              <option value="Physics">Physics</option>
-              <option value="History">History</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Business Administration">Business Administration</option>
             </select>
           </div>
           <div class="form-group">
@@ -122,7 +121,6 @@
               <option value="Professor">Professor</option>
               <option value="Associate Professor">Associate Professor</option>
               <option value="Assistant Professor">Assistant Professor</option>
-              <option value="Lecturer">Lecturer</option>
             </select>
           </div>
           <div class="form-group">
@@ -130,8 +128,8 @@
             <input type="text" id="specialization" name="specialization" required>
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Add Professor</button>
-            <button type="button" class="btn btn-outline" onclick="closeModal('addProfessorModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Professor</button>
+            <button type="button" class="btn btn-outline" onclick="closeModal('professorModal')">Cancel</button>
           </div>
         </form>
       </div>
