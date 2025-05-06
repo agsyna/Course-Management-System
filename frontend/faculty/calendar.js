@@ -39,9 +39,10 @@ function openScheduleForm() {
 // Function to fetch schedule data
 async function fetchSchedule() {
     try {
-        const response = await fetch(`http://localhost:3000/api/faculty/schedule/${userData.username}`);
+        const response = await fetch('http://localhost:3000/api/faculty/schedule');
         scheduleData = await response.json();
         console.log('Schedule data:', scheduleData);
+        updateCalendar();
     } catch (error) {
         console.error('Error fetching schedule:', error);
     }
@@ -50,83 +51,56 @@ async function fetchSchedule() {
 function updateCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-
+    
     // Update month display
     document.getElementById('currentMonth').textContent = 
-        `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
-
+        currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    
     // Get first day of month and total days
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const totalDays = lastDay.getDate();
-
-    // Adjust to start from Monday (0)
-    let startingDay = firstDay.getDay(); // 0 (Sun) to 6 (Sat)
-    startingDay = startingDay === 0 ? 6 : startingDay - 1;
-
-    // Clear previous calendar
+    
+    // Clear calendar
     const calendarBody = document.getElementById('calendarBody');
     calendarBody.innerHTML = '';
-
-    // Add empty divs before the first day
-    for (let i = 0; i < startingDay; i++) {
+    
+    // Add empty cells for days before first day of month
+    const firstDayIndex = firstDay.getDay() || 7; // Convert Sunday (0) to 7
+    for (let i = 1; i < firstDayIndex; i++) {
         const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-day empty';
         calendarBody.appendChild(emptyCell);
     }
-
-    // Add days of the month
+    
+    // Add days
     const today = new Date();
     for (let day = 1; day <= totalDays; day++) {
         const cell = document.createElement('div');
         cell.textContent = day;
+        cell.className = 'calendar-day';
 
         if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
             cell.classList.add('today');
         }
 
-        // Hover tooltip
-        cell.addEventListener('mouseenter', () => {
-            const date = new Date(year, month, day);
-            const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+        // Add schedule indicator if there are classes on this day
+        const date = new Date(year, month, day);
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+        if (scheduleData && scheduleData[dayName] && scheduleData[dayName].length > 0) {
+            cell.classList.add('has-schedule');
+            const indicator = document.createElement('div');
+            indicator.className = 'schedule-indicator';
+            indicator.textContent = scheduleData[dayName][0].course;
+            cell.appendChild(indicator);
+        }
 
-            const daySchedule = scheduleData?.schedule.find(d => d.day === dayName)?.classes || [];
-
-            if (daySchedule.length > 0) {
-                const tooltip = document.createElement('div');
-                tooltip.className = 'schedule-tooltip';
-
-                let tooltipContent = `<div class="tooltip-header">${dayName}</div>`;
-                tooltipContent += `
-                    <div class="tooltip-section">
-                        <div class="section-title">Classes</div>
-                        ${daySchedule.map(cls => `
-                            <div class="tooltip-item">
-                                <span class="time">${cls.time}</span>
-                                <span class="course">${cls.course}</span>
-                                <span class="location">${cls.location}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-
-                tooltip.innerHTML = tooltipContent;
-                cell.appendChild(tooltip);
-            }
-        });
-
-        cell.addEventListener('mouseleave', () => {
-            const tooltip = cell.querySelector('.schedule-tooltip');
-            if (tooltip) tooltip.remove();
-        });
-
-        cell.addEventListener('click', () => {
-            showDayDetails(year, month, day);
-        });
-
+        // Add click handler for day details
+        cell.addEventListener('click', () => showDayDetails(year, month, day));
+        
         calendarBody.appendChild(cell);
     }
 }
-
 
 function showDayDetails(year, month, day) {
     const date = new Date(year, month, day);
@@ -142,7 +116,7 @@ function showDayDetails(year, month, day) {
     document.getElementById('selectedDate').textContent = formattedDate;
     
     // Get day's schedule
-    const daySchedule = scheduleData?.schedule.find(d => d.day === dayName)?.classes || [];
+    const daySchedule = scheduleData?.[dayName] || [];
     
     // Update schedule section
     const scheduleList = document.getElementById('daySchedule');
@@ -152,7 +126,6 @@ function showDayDetails(year, month, day) {
                 <div class="time">${cls.time}</div>
                 <div class="course">${cls.course}</div>
                 <div class="details">
-                    <span class="section">${cls.section}</span>
                     <span class="location">${cls.location}</span>
                 </div>
             </div>

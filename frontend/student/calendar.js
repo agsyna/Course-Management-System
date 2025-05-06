@@ -1,8 +1,9 @@
 let currentDate = new Date();
 let userData = JSON.parse(sessionStorage.getItem('userData'));
+let assignments = [];
 
 // Initialize calendar
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     if (!userData) {
         window.location.href = 'login.html';
         return;
@@ -10,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update section display
     document.querySelector('.subtitle').textContent = `CSE - ${userData.section}`;
+    
+    // Fetch assignments
+    await fetchAssignments();
     
     // Initialize calendar
     updateCalendar();
@@ -25,6 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCalendar();
     });
 });
+
+// Function to fetch assignments
+async function fetchAssignments() {
+    try {
+        const response = await fetch('http://localhost:3000/assignments');
+        assignments = await response.json();
+    } catch (error) {
+        console.error('Error fetching assignments:', error);
+    }
+}
 
 function updateCalendar() {
     const year = currentDate.getFullYear();
@@ -65,14 +79,38 @@ function updateCalendar() {
         }
         
         const cell = document.createElement('td');
-        cell.textContent = day;
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         
+        // Create day number div
+        const dayNumber = document.createElement('div');
+        dayNumber.className = 'day-number';
+        dayNumber.textContent = day;
+        cell.appendChild(dayNumber);
+
+        // Check for assignments due on this day
+        const dayAssignments = assignments.filter(assignment => {
+            const dueDate = new Date(assignment.dueDate);
+            return dueDate.toISOString().split('T')[0] === dateStr;
+        });
+
+        if (dayAssignments.length > 0) {
+            const assignmentsDiv = document.createElement('div');
+            assignmentsDiv.className = 'assignments';
+            dayAssignments.forEach(assignment => {
+                const assignmentDiv = document.createElement('div');
+                assignmentDiv.className = 'assignment-item';
+                assignmentDiv.textContent = assignment.title;
+                assignmentsDiv.appendChild(assignmentDiv);
+            });
+            cell.appendChild(assignmentsDiv);
+        }
+
         // Check if this is today
         const today = new Date();
         if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
             cell.classList.add('today');
         }
-        
+
         row.appendChild(cell);
         day++;
     }

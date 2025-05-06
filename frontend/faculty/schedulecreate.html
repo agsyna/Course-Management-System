@@ -85,15 +85,12 @@
       event.preventDefault();
   
       const formData = {
-        section: document.getElementById('section').value,  // CSE-A, etc.
-        schedule: {
-          [document.getElementById('day').value]: [{
-            course: document.getElementById('course').value,
-            time: document.getElementById('time').value,
-            location: document.getElementById('location').value,
-            faculty: userData.username
-          }]
-        }
+        [document.getElementById('day').value]: [{
+          course: document.getElementById('course').value,
+          time: document.getElementById('time').value,
+          location: document.getElementById('location').value,
+          faculty: userData.username
+        }]
       };
   
       try {
@@ -105,17 +102,45 @@
           body: JSON.stringify(formData)
         });
   
+        const data = await response.json();
+  
         if (response.ok) {
-          alert('Schedule created successfully!');
-          window.opener.location.reload();
-          window.close();
+          // Show success message
+          const successMessage = document.createElement('div');
+          successMessage.style.position = 'fixed';
+          successMessage.style.top = '20px';
+          successMessage.style.right = '20px';
+          successMessage.style.padding = '10px 20px';
+          successMessage.style.backgroundColor = '#10B981';
+          successMessage.style.color = 'white';
+          successMessage.style.borderRadius = '4px';
+          successMessage.textContent = 'Schedule created successfully!';
+          document.body.appendChild(successMessage);
+  
+          // Close the window after a short delay
+          setTimeout(() => {
+            window.opener.location.reload();
+            window.close();
+          }, 1500);
         } else {
-          const error = await response.json();
-          alert(error.message || 'Failed to create schedule');
+          throw new Error(data.message || 'Failed to create schedule');
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred while creating the schedule');
+        // Show error message
+        const errorMessage = document.createElement('div');
+        errorMessage.style.position = 'fixed';
+        errorMessage.style.top = '20px';
+        errorMessage.style.right = '20px';
+        errorMessage.style.padding = '10px 20px';
+        errorMessage.style.backgroundColor = '#EF4444';
+        errorMessage.style.color = 'white';
+        errorMessage.style.borderRadius = '4px';
+        errorMessage.textContent = error.message || 'An error occurred while creating the schedule';
+        document.body.appendChild(errorMessage);
+  
+        // Remove error message after 3 seconds
+        setTimeout(() => errorMessage.remove(), 3000);
       }
     }
   </script>
