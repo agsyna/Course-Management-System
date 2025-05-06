@@ -15,6 +15,7 @@ const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const STUDENTS_FILE = path.join(DATA_DIR, 'students.json');
 const PROFESSORS_FILE = path.join(DATA_DIR, 'professors.json');
 const COURSES_FILE = path.join(DATA_DIR, 'courses.json');
+const ALL_COURSES_FILE = path.join(DATA_DIR, 'allcourses.json');
 const SCHEDULES_DIR = path.join(DATA_DIR, 'schedules');
 const FACULTY_DIR = path.join(DATA_DIR, 'faculty');
 
@@ -107,7 +108,7 @@ app.get('/api/marks/:section', (req, res) => {
     });
 });
 
-// Route for courses data
+// Route for student courses data
 app.get('/api/courses', (req, res) => {
     try {
         const courses = readJsonFile(COURSES_FILE);
@@ -121,17 +122,106 @@ app.get('/api/courses', (req, res) => {
     }
 });
 
-// Get single course by ID
-app.get('/api/courses/:id', (req, res) => {
-    const courses = readJsonFile(COURSES_FILE);
-    if (!Array.isArray(courses)) {
-        return res.status(500).json({ error: 'Invalid courses data format' });
+// Route for admin all courses data
+app.get('/api/allcourses', (req, res) => {
+    try {
+        const allCourses = readJsonFile(ALL_COURSES_FILE);
+        if (!allCourses || !Array.isArray(allCourses)) {
+            return res.status(500).json({ error: 'Invalid allcourses data format' });
+        }
+        res.json(allCourses);
+    } catch (error) {
+        console.error('Error reading allcourses file:', error);
+        res.status(500).json({ error: 'Failed to read allcourses data' });
     }
-    const course = courses.find(c => c.id === req.params.id);
+});
+
+// Get single course by ID (admin view)
+app.get('/api/allcourses/:id', (req, res) => {
+    const allCourses = readJsonFile(ALL_COURSES_FILE);
+    if (!Array.isArray(allCourses)) {
+        return res.status(500).json({ error: 'Invalid allcourses data format' });
+    }
+    const course = allCourses.find(c => c.id === req.params.id);
     if (!course) {
         return res.status(404).json({ error: 'Course not found' });
     }
     res.json(course);
+});
+
+// Add new course (admin)
+app.post('/api/allcourses', (req, res) => {
+    try {
+        const allCourses = readJsonFile(ALL_COURSES_FILE);
+        if (!Array.isArray(allCourses)) {
+            return res.status(500).json({ error: 'Invalid allcourses data format' });
+        }
+
+        const newCourse = req.body;
+        if (!newCourse.id || !newCourse.title) {
+            return res.status(400).json({ error: 'Course ID and title are required' });
+        }
+
+        // Check if course ID already exists
+        if (allCourses.some(c => c.id === newCourse.id)) {
+            return res.status(400).json({ error: 'Course ID already exists' });
+        }
+
+        allCourses.push(newCourse);
+        writeJsonFile(ALL_COURSES_FILE, allCourses);
+        res.json({ success: true, message: 'Course added successfully' });
+    } catch (error) {
+        console.error('Error adding course:', error);
+        res.status(500).json({ error: 'Failed to add course' });
+    }
+});
+
+// Update course (admin)
+app.put('/api/allcourses/:id', (req, res) => {
+    try {
+        const allCourses = readJsonFile(ALL_COURSES_FILE);
+        if (!Array.isArray(allCourses)) {
+            return res.status(500).json({ error: 'Invalid allcourses data format' });
+        }
+
+        const courseId = req.params.id;
+        const updatedCourse = req.body;
+
+        const index = allCourses.findIndex(c => c.id === courseId);
+        if (index === -1) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+
+        allCourses[index] = { ...allCourses[index], ...updatedCourse };
+        writeJsonFile(ALL_COURSES_FILE, allCourses);
+        res.json({ success: true, message: 'Course updated successfully' });
+    } catch (error) {
+        console.error('Error updating course:', error);
+        res.status(500).json({ error: 'Failed to update course' });
+    }
+});
+
+// Delete course (admin)
+app.delete('/api/allcourses/:id', (req, res) => {
+    try {
+        const allCourses = readJsonFile(ALL_COURSES_FILE);
+        if (!Array.isArray(allCourses)) {
+            return res.status(500).json({ error: 'Invalid allcourses data format' });
+        }
+
+        const courseId = req.params.id;
+        const filteredCourses = allCourses.filter(c => c.id !== courseId);
+
+        if (filteredCourses.length === allCourses.length) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+
+        writeJsonFile(ALL_COURSES_FILE, filteredCourses);
+        res.json({ success: true, message: 'Course deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting course:', error);
+        res.status(500).json({ error: 'Failed to delete course' });
+    }
 });
 
 // Get all assignments
@@ -257,18 +347,15 @@ app.get('/api/schedule/:section', (req, res) => {
 
 // POST new schedule for a section
 app.post('/api/faculty/schedule', (req, res) => {
-    const { section, schedule } = req.body;
+    const scheduleData = req.body;
+    const facultyEmail = Object.values(scheduleData)[0][0].faculty;
+    const scheduleFile = path.join(SCHEDULES_DIR, 'faculty_schedules', `${facultyEmail.split('@')[0]}.json`);
 
-    if (!section || !schedule) {
-        return res.status(400).json({ message: "Section and schedule data are required." });
+    // Ensure the faculty_schedules directory exists
+    const facultySchedulesDir = path.join(SCHEDULES_DIR, 'faculty_schedules');
+    if (!fs.existsSync(facultySchedulesDir)) {
+        fs.mkdirSync(facultySchedulesDir, { recursive: true });
     }
-
-    // Ensure the faculty directory exists
-    if (!fs.existsSync(FACULTY_DIR)) {
-        fs.mkdirSync(FACULTY_DIR, { recursive: true });
-    }
-
-    const scheduleFile = path.join(FACULTY_DIR, `${section}_schedule.json`);
 
     try {
         // Read existing schedule if it exists
@@ -279,10 +366,15 @@ app.post('/api/faculty/schedule', (req, res) => {
         }
 
         // Merge new schedule with existing schedule
-        const updatedSchedule = { ...existingSchedule, ...schedule };
+        const day = Object.keys(scheduleData)[0];
+        if (existingSchedule[day]) {
+            existingSchedule[day].push(...scheduleData[day]);
+        } else {
+            existingSchedule[day] = scheduleData[day];
+        }
 
         // Write the updated schedule to the file
-        fs.writeFileSync(scheduleFile, JSON.stringify(updatedSchedule, null, 2));
+        fs.writeFileSync(scheduleFile, JSON.stringify(existingSchedule, null, 2));
         res.json({ message: "Schedule created successfully!" });
     } catch (error) {
         console.error("Error writing schedule:", error);
@@ -438,6 +530,90 @@ app.delete("/api/courses/:id", (req, res) => {
         res.json({ success: true, message: "Course deleted successfully" });
     } else {
         res.status(500).json({ success: false, message: "Failed to delete course" });
+    }
+});
+
+// Get faculty schedule
+app.get('/api/faculty/schedule', (req, res) => {
+    const facultySchedulesDir = path.join(SCHEDULES_DIR, 'faculty_schedules');
+    
+    try {
+        // Read all files in faculty_schedules directory
+        const files = fs.readdirSync(facultySchedulesDir);
+        let allSchedules = {};
+        
+        // Combine all schedule files
+        files.forEach(file => {
+            if (file.endsWith('.json')) {
+                const filePath = path.join(facultySchedulesDir, file);
+                const scheduleData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+                // Merge schedules
+                Object.keys(scheduleData).forEach(day => {
+                    if (!allSchedules[day]) {
+                        allSchedules[day] = [];
+                    }
+                    allSchedules[day].push(...scheduleData[day]);
+                });
+            }
+        });
+        
+        res.json(allSchedules);
+    } catch (error) {
+        console.error('Error reading faculty schedules:', error);
+        res.status(500).json({ error: 'Failed to read schedule data' });
+    }
+});
+
+// Get student schedule by section
+app.get('/api/student/schedule/:section', (req, res) => {
+    const section = req.params.section;
+    const scheduleFile = path.join(SCHEDULES_DIR, `${section}_schedule.json`);
+    
+    try {
+        if (fs.existsSync(scheduleFile)) {
+            const scheduleData = JSON.parse(fs.readFileSync(scheduleFile, 'utf8'));
+            res.json(scheduleData);
+        } else {
+            // If specific section file not found, try to read from CSE4 or CSE6
+            const cse4File = path.join(SCHEDULES_DIR, 'CSE4_schedule.json');
+            const cse6File = path.join(SCHEDULES_DIR, 'CSE6_schedule.json');
+            
+            if (fs.existsSync(cse4File)) {
+                const scheduleData = JSON.parse(fs.readFileSync(cse4File, 'utf8'));
+                res.json(scheduleData);
+            } else if (fs.existsSync(cse6File)) {
+                const scheduleData = JSON.parse(fs.readFileSync(cse6File, 'utf8'));
+                res.json(scheduleData);
+            } else {
+                res.json({}); // Return empty object if no schedule exists
+            }
+        }
+    } catch (error) {
+        console.error('Error reading student schedule:', error);
+        res.status(500).json({ error: 'Failed to read schedule data' });
+    }
+});
+
+// Get all student schedules
+app.get('/api/student/schedules', (req, res) => {
+    try {
+        const files = fs.readdirSync(SCHEDULES_DIR);
+        let allSchedules = {};
+        
+        // Read only section schedule files (CSE4_schedule.json, CSE5_schedule.json, etc.)
+        files.forEach(file => {
+            if (file.endsWith('_schedule.json')) {
+                const filePath = path.join(SCHEDULES_DIR, file);
+                const scheduleData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+                const section = file.replace('_schedule.json', '');
+                allSchedules[section] = scheduleData;
+            }
+        });
+        
+        res.json(allSchedules);
+    } catch (error) {
+        console.error('Error reading student schedules:', error);
+        res.status(500).json({ error: 'Failed to read schedule data' });
     }
 });
 

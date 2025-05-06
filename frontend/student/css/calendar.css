@@ -223,6 +223,26 @@ td {
     color: white;
 }
 
+.day-number {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.assignments {
+    font-size: 0.8em;
+    margin-top: 2px;
+}
+
+.assignment-item {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    padding: 2px 4px;
+    border-radius: 3px;
+    margin: 1px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 @media (max-width: 768px) {
     .container {

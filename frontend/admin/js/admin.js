@@ -1,18 +1,5 @@
 // Admin Panel Main Script
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if user is logged in and is admin
-    const userData = sessionStorage.getItem('userData');
-    if (!userData) {
-        window.location.href = '../login.html';
-        return;
-    }
-
-    const user = JSON.parse(userData);
-    if (user.role !== 'admin') {
-        window.location.href = '../login.html';
-        return;
-    }
-
     // Initialize based on current page
     const currentPage = window.location.pathname.split('/').pop();
     switch (currentPage) {
@@ -154,38 +141,47 @@ function displayProfessors(professors) {
 
 // Courses Page Functions
 async function initializeCoursesPage() {
+    console.log('Initializing courses page...');
+    const tbody = document.querySelector('.table tbody');
+    if (!tbody) {
+        console.error('Table body element not found!');
+        return;
+    }
+    console.log('Table body found, fetching courses...');
+
     try {
-        const response = await fetch('http://localhost:3000/api/courses');
+        const response = await fetch('http://localhost:3000/api/allcourses');
+        console.log('Response status:', response.status);
+        
         if (!response.ok) {
             throw new Error(`Failed to fetch courses: ${response.status} ${response.statusText}`);
         }
+        
         const courses = await response.json();
+        console.log('Received courses:', courses);
+        
         if (!Array.isArray(courses)) {
             throw new Error('Invalid data format: expected an array of courses');
         }
+        
         displayCourses(courses);
-        setupSearchAndFilter('courses');
         setupCourseForm();
     } catch (error) {
         console.error('Error loading courses:', error);
-        showError(`Failed to load courses: ${error.message}. Please check if the server is running.`);
-        // Display empty state
-        const tbody = document.querySelector('.table tbody');
-        if (tbody) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="8" class="text-center">
-                        <div class="empty-state">
-                            <i class="fas fa-exclamation-circle"></i>
-                            <p>Unable to load courses data</p>
-                            <button class="btn btn-outline" onclick="initializeCoursesPage()">
-                                <i class="fas fa-sync"></i> Retry
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="text-center">
+                    <div class="empty-state">
+                        <h3>Error Loading Courses</h3>
+                        <p>${error.message}</p>
+                        <p>Please check if the server is running at http://localhost:3000</p>
+                        <button class="btn btn-outline" onclick="initializeCoursesPage()">
+                            <i class="fas fa-sync"></i> Retry
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
     }
 }
 
@@ -193,16 +189,30 @@ function displayCourses(courses) {
     const tbody = document.querySelector('.table tbody');
     if (!tbody) return;
 
+    if (!courses || courses.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="text-center">
+                    <div class="empty-state">
+                        <h3>No Courses Found</h3>
+                        <p>Add your first course to get started.</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
     tbody.innerHTML = courses.map(course => `
         <tr>
             <td>${course.id}</td>
             <td>${course.title}</td>
-            <td>${course.department}</td>
-            <td>${course.credits}</td>
-            <td>${course.professor}</td>
-            <td>${course.currentEnrollment}/${course.maxEnrollment}</td>
+            <td>${course.department || 'Not Assigned'}</td>
+            <td>${course.credits || 'N/A'}</td>
+            <td>${course.professor || 'Not Assigned'}</td>
+            <td>${course.currentEnrollment || 0}/${course.maxEnrollment || 'N/A'}</td>
             <td>
-                <span class="status-badge ${course.status.toLowerCase()}">${course.status}</span>
+                <span class="status-badge ${course.status?.toLowerCase() || 'active'}">${course.status || 'Active'}</span>
             </td>
             <td>
                 <button class="btn btn-outline btn-sm" onclick="editCourse('${course.id}')">
@@ -214,90 +224,6 @@ function displayCourses(courses) {
             </td>
         </tr>
     `).join('');
-}
-
-async function setupCourseForm() {
-    console.log('Setting up course form');
-    
-    // Load professors for the dropdown
-    try {
-        const response = await fetch('http://localhost:3000/api/professors');
-        if (!response.ok) {
-            throw new Error(`Failed to fetch professors: ${response.status}`);
-        }
-        const professors = await response.json();
-        console.log('Professors loaded:', professors);
-        const professorSelect = document.getElementById('professor');
-        if (professorSelect) {
-            professorSelect.innerHTML = '<option value="">Select Professor</option>' +
-                professors.map(prof => `<option value="${prof.id}">${prof.firstName} ${prof.lastName}</option>`).join('');
-        }
-    } catch (error) {
-        console.error('Error loading professors:', error);
-        showError('Failed to load professors list');
-    }
-
-    const courseForm = document.getElementById('courseForm');
-    if (courseForm) {
-        courseForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            console.log('Course form submitted');
-
-            // Get form data
-            const courseData = {
-                id: document.getElementById('courseId').value,
-                title: document.getElementById('title').value,
-                department: document.getElementById('department').value,
-                description: document.getElementById('description').value,
-                credits: parseInt(document.getElementById('credits').value),
-                schedule: document.getElementById('schedule').value,
-                location: document.getElementById('location').value,
-                maxEnrollment: parseInt(document.getElementById('maxEnrollment').value),
-                professor: document.getElementById('professor').value,
-                prerequisites: document.getElementById('prerequisites').value.split(',').map(p => p.trim()).filter(p => p),
-                startDate: document.getElementById('startDate').value,
-                endDate: document.getElementById('endDate').value,
-                status: 'Active'
-            };
-            console.log('Course data to submit:', courseData);
-
-            try {
-                const isEdit = courseForm.dataset.editMode === 'true';
-                const url = isEdit 
-                    ? `http://localhost:3000/api/courses/${courseData.id}`
-                    : 'http://localhost:3000/api/courses';
-                const method = isEdit ? 'PUT' : 'POST';
-                console.log('Making request:', { url, method });
-
-                const response = await fetch(url, {
-                    method,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(courseData)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                console.log('Server response:', result);
-                if (result.success) {
-                    closeModal('courseModal');
-                    initializeCoursesPage();
-                    showSuccess(isEdit ? 'Course updated successfully' : 'Course added successfully');
-                } else {
-                    throw new Error(result.message || 'Failed to save course');
-                }
-            } catch (error) {
-                console.error('Error saving course:', error);
-                showError(`Failed to save course: ${error.message}`);
-            }
-        });
-    } else {
-        console.error('Course form not found');
-    }
 }
 
 function addCourse() {
@@ -322,69 +248,122 @@ function addCourse() {
     }
 }
 
-async function editCourse(id) {
-    console.log('Edit course called with ID:', id);
+function setupCourseForm() {
+    const courseForm = document.getElementById('courseForm');
+    if (!courseForm) return;
+
+    // Load professors for dropdown
+    fetch('http://localhost:3000/api/professors')
+        .then(response => response.json())
+        .then(professors => {
+            const professorSelect = document.getElementById('professor');
+            if (professorSelect) {
+                professorSelect.innerHTML = `
+                    <option value="">Select Professor</option>
+                    ${professors.map(prof => `
+                        <option value="${prof.id}">${prof.firstName} ${prof.lastName}</option>
+                    `).join('')}
+                `;
+            }
+        })
+        .catch(error => console.error('Error loading professors:', error));
+
+    courseForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Course form submitted');
+        
+        const formData = new FormData(courseForm);
+        const courseData = {
+            id: formData.get('courseId'),
+            title: formData.get('title'),
+            department: formData.get('department'),
+            description: formData.get('description'),
+            credits: parseInt(formData.get('credits')),
+            schedule: formData.get('schedule'),
+            location: formData.get('location'),
+            maxEnrollment: parseInt(formData.get('maxEnrollment')),
+            professor: formData.get('professor'),
+            prerequisites: formData.get('prerequisites').split(',').map(p => p.trim()).filter(p => p),
+            startDate: formData.get('startDate'),
+            endDate: formData.get('endDate'),
+            status: 'Active',
+            currentEnrollment: 0
+        };
+
+        try {
+            const isEdit = courseForm.dataset.editMode === 'true';
+            const url = isEdit 
+                ? `http://localhost:3000/api/allcourses/${courseForm.dataset.courseId}`
+                : 'http://localhost:3000/api/allcourses';
+            const method = isEdit ? 'PUT' : 'POST';
+
+            console.log('Submitting course data:', courseData);
+            const response = await fetch(url, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(courseData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to ${isEdit ? 'update' : 'add'} course: ${response.status} ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log('Server response:', result);
+
+            closeModal('courseModal');
+            initializeCoursesPage();
+            showSuccess(isEdit ? 'Course updated successfully' : 'Course added successfully');
+        } catch (error) {
+            console.error('Error saving course:', error);
+            showError(`Failed to save course: ${error.message}`);
+        }
+    });
+}
+
+async function editCourse(courseId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/courses/${id}`);
-        console.log('Fetch response:', response);
+        const response = await fetch(`http://localhost:3000/api/allcourses/${courseId}`);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error('Failed to fetch course details');
         }
         const course = await response.json();
-        console.log('Course data:', course);
         
+        // Populate form with course data
         const courseForm = document.getElementById('courseForm');
-        const modalTitle = document.getElementById('courseModalTitle');
-        if (courseForm && modalTitle) {
-            courseForm.dataset.editMode = 'true';
-            courseForm.dataset.courseId = id;
-            modalTitle.textContent = 'Edit Course';
-            
-            // Fill form with course data
-            document.getElementById('courseId').value = course.id;
-            document.getElementById('courseId').readOnly = true; // Course ID cannot be changed
-            document.getElementById('title').value = course.title;
-            document.getElementById('department').value = course.department;
-            document.getElementById('description').value = course.description;
-            document.getElementById('credits').value = course.credits;
-            document.getElementById('schedule').value = course.schedule;
-            document.getElementById('location').value = course.location;
-            document.getElementById('maxEnrollment').value = course.maxEnrollment;
-            document.getElementById('professor').value = course.professor;
-            document.getElementById('prerequisites').value = Array.isArray(course.prerequisites) ? course.prerequisites.join(', ') : course.prerequisites;
-            document.getElementById('startDate').value = course.startDate;
-            document.getElementById('endDate').value = course.endDate;
-            
-            openModal('courseModal');
-        } else {
-            console.error('Course form or modal title not found');
+        if (courseForm) {
+            courseForm.courseId.value = course.id;
+            courseForm.title.value = course.title;
+            courseForm.professor.value = course.professor || '';
+            courseForm.schedule.value = course.schedule || '';
         }
     } catch (error) {
-        console.error('Error in editCourse:', error);
-        showError(`Failed to fetch course data: ${error.message}`);
+        console.error('Error fetching course details:', error);
+        alert('Failed to load course details. Please try again.');
     }
 }
 
-async function deleteCourse(id) {
-    if (confirm('Are you sure you want to delete this course?')) {
-        try {
-            const response = await fetch(`http://localhost:3000/api/courses/${id}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const result = await response.json();
-            if (result.success) {
-                initializeCoursesPage();
-                showSuccess('Course deleted successfully');
-            } else {
-                throw new Error(result.message || 'Failed to delete course');
-            }
-        } catch (error) {
-            console.error('Error deleting course:', error);
-            showError(`Failed to delete course: ${error.message}`);
+async function deleteCourse(courseId) {
+    if (!confirm('Are you sure you want to delete this course?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/allcourses/${courseId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete course');
         }
+
+        // Refresh the courses list
+        initializeCoursesPage();
+    } catch (error) {
+        console.error('Error deleting course:', error);
+        alert('Failed to delete course. Please try again.');
     }
 }
 
@@ -739,4 +718,9 @@ function showSuccess(message) {
 function initializeDashboard() {
     // TODO: Implement dashboard initialization
     console.log('Dashboard initialized');
+}
+
+// Logout function
+function logout() {
+    window.location.href = '../login.html';
 } 

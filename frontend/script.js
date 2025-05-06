@@ -1,15 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const userData = sessionStorage.getItem('userData');
-  if (userData) {
-    try {
-      const user = JSON.parse(userData);
-      redirectToDashboard(user.role);
-    } catch (e) {
-      console.error("Invalid user data in sessionStorage:", e);
-      sessionStorage.removeItem('userData');
-    }
-  }
-
   if (typeof loadAssignments === 'function') loadAssignments();
   if (typeof renderAttendanceChart === 'function') renderAttendanceChart();
 });
@@ -37,7 +26,6 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (data.success) {
-      sessionStorage.setItem('userData', JSON.stringify(data.user));
       redirectToDashboard(data.user.role);
     } else {
       alert(data.message || 'Invalid credentials');

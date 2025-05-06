@@ -85,15 +85,12 @@
       event.preventDefault();
   
       const formData = {
-        section: document.getElementById('section').value,
-        schedule: {
-          [document.getElementById('day').value]: [{
-            course: document.getElementById('course').value,
-            time: document.getElementById('time').value,
-            location: document.getElementById('location').value,
-            faculty: userData.username
-          }]
-        }
+        [document.getElementById('day').value]: [{
+          course: document.getElementById('course').value,
+          time: document.getElementById('time').value,
+          location: document.getElementById('location').value,
+          faculty: userData.username
+        }]
       };
   
       try {

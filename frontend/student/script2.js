@@ -70,8 +70,8 @@ if (!userData) {
 }
 
 // Update student name and section
-document.getElementById('studentName').textContent = userData.username;
-document.getElementById('studentSection').textContent = userData.section;
+document.getElementById('studentName').textContent = 'Syna Agarwala';
+document.getElementById('studentSection').textContent = 'CSE4';
 
 // Fetch and display attendance data
 async function fetchAttendanceData() {
@@ -183,10 +183,12 @@ async function fetchCourses() {
 // Fetch and display schedule
 async function fetchSchedule() {
     try {
-        const response = await fetch(`http://localhost:3000/api/schedule/${userData.section}`);
+        const response = await fetch(`http://localhost:3000/api/student/schedule/${userData.section}`);
         const data = await response.json();
-        displayTodaySchedule(data.schedule);
-        displayWeeklySchedule(data.schedule);
+        if (data && data.schedule) {
+            displayTodaySchedule(data.schedule);
+            displayWeeklySchedule(data.schedule);
+        }
     } catch (error) {
         console.error('Error fetching schedule:', error);
     }
@@ -194,16 +196,17 @@ async function fetchSchedule() {
 
 function displayTodaySchedule(schedule) {
     const scheduleTableBody = document.querySelector('.schedulebox tbody');
+    if (!scheduleTableBody) return;
+    
     const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    const todaySchedule = schedule.find(day => day.day === today);
     
-    const todayClasses = schedule.find(day => day.day === today)?.classes || [];
-    
-    if (todayClasses.length === 0) {
+    if (!todaySchedule || !todaySchedule.classes || todaySchedule.classes.length === 0) {
         scheduleTableBody.innerHTML = '<tr><td colspan="4" class="text-center text-gray-500">No classes scheduled for today</td></tr>';
         return;
     }
 
-    scheduleTableBody.innerHTML = todayClasses.map(classItem => `
+    scheduleTableBody.innerHTML = todaySchedule.classes.map(classItem => `
         <tr>
             <td>${classItem.time}</td>
             <td>${classItem.course}</td>
@@ -259,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Signout function
 function signOut() {
-    sessionStorage.removeItem('userData');
     window.location.href = '../login.html';
 }
 
